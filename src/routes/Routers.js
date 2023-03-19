@@ -5,6 +5,8 @@ import About from '../pages/About'
 import Room from '../pages/Room'
 import Services from '../pages/Services'
 import Moment from '../pages/Moment'
+import News from '../pages/News'
+import Contact from '../pages/Contact'
 
 const Routers = () => {
   return (
@@ -15,6 +17,8 @@ const Routers = () => {
         <Route path='/room' element={<Room />}/>
         <Route path='/services' element={<Services />} />
         <Route path='/moment' element={<Moment />} />
+        <Route path='/news' element={<News />} />
+        <Route path='/contact' element={<Contact />} />
     </Routes>
   )
 }

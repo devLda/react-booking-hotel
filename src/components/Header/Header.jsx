@@ -1,9 +1,82 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+
+import logo from "../../assets/img/logo.png";
+import "../../styles/header.css";
 
 const Header = () => {
   return (
-    <div>Header</div>
-  )
-}
+    <header className="container mx-auto pt-7 flex justify-between">
+      <div className="logo">
+        <Link to="/">
+          <img className="w-40 h-16" src={logo} alt="Logo" />
+        </Link>
+      </div>
 
-export default Header
+      <nav className="flex items-end">
+        <ul className="font-normal tracking-widest">
+          <li>
+            <Link to="/">HOME</Link>
+          </li>
+          <li>
+            <Link to="/about">ABOUT</Link>
+          </li>
+          <li className="sub-nav">
+            <Link to="/room">
+              ROOM
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-4 inline-block"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </Link>
+            <ul>
+              <li> <Link to = "/" > Deluxe Room </Link></li>
+              <li> <Link to = "/" > Premium Room </Link></li>
+              <li> <Link to = "/" > Premium Deluxe Room </Link></li>
+            </ul>
+          </li>
+          <li>
+            <Link to="/services">
+              SERVICES
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-4 inline-block"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </Link>
+          </li>
+          <li>
+            <Link to="/moment">MOMENT</Link>
+          </li>
+          <li>
+            <Link to="/news">NEWS</Link>
+          </li>
+          <li>
+            <Link to="/contact">CONTACT</Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
