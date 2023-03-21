@@ -1,0 +1,19 @@
+.slider{
+    min-height: 100vh;
+}
+.slider .item-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.slider .item-slider .caption {
+    z-index: 1;
+}
+
+.bg-img{
+    background-image: url('../assets/img/slider/1.jpg');
+}

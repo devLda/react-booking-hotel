@@ -1,8 +1,18 @@
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+    background-color: transparent;
+}
+
 header nav li{
     position: relative;
     display: inline-block;
     padding: 0 24px;
-    /* transition: all .4s; */
+    color: #f4f4f4;
+    cursor: pointer;
 }
 
 header nav li:hover > a{
@@ -32,6 +42,7 @@ nav .sub-nav ul{
     padding: 12px;
     opacity: 0;
     visibility: hidden;
+    background-color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transform: translateY(20px);
     transition: all .3s;
@@ -42,6 +53,7 @@ nav .sub-nav ul{
     display: inline-block;
     width: 240px;
     padding: 8px 16px;
+    color: #222;
     border-bottom: 1px solid #f4f4f4;
     /* transform: translateX(0); */
     transition: all .4s;
