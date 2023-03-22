@@ -15,7 +15,7 @@ header nav li{
     cursor: pointer;
 }
 
-header nav li:hover > a{
+header nav li:hover > a {
     color: #aa8453;
 }
 

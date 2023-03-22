@@ -1,19 +1,119 @@
-.slider{
-    min-height: 100vh;
+.slider {
+  min-height: 100vh;
 }
 .slider .item-slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
 }
 .slider .item-slider .caption {
-    z-index: 1;
+  z-index: 1;
 }
 
-.bg-img{
-    background-image: url('../assets/img/slider/1.jpg');
+.bg-img {
+  background-image: url("../assets/img/slider/1.jpg");
+}
+
+/* Star rating  */
+.star-rating {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.9em;
+  margin-right: 0.9em;
+  margin-bottom: 2em;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0.7em solid #e4a853;
+  border-left: 0.3em solid transparent;
+  /* Controlls the size of the stars. */
+  font-size: 8px;
+}
+
+.star-rating:before,
+.star-rating:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0.6em;
+  left: -1em;
+  border-right: 1em solid transparent;
+  border-bottom: 0.7em solid #e4a853;
+  border-left: 1em solid transparent;
+  transform: rotate(-35deg);
+}
+
+.star-rating:after {
+  transform: rotate(35deg);
+}
+
+.slider span i.star-rating {
+    -webkit-animation-delay: .8s;
+    animation-delay: .8s;
+}
+
+.v-middle {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translate(0%, -50%);
+    transform: translate(0%, -50%);
+}
+
+.slider .caption h4 {
+    animation-delay: .4s;
+}
+.slider .caption h1 {
+    font-family: 'Gilda Display', serif;
+    letter-spacing: 16px;
+    -webkit-animation-delay: .6s;
+    animation-delay: .6s;
+}
+
+.slider .caption .butn-light {
+  -webkit-animation-delay: .8s;
+  animation-delay: .8s;
+}
+
+.butn-light {
+  position: relative;
+  line-height: 1.2em;
+}
+
+.butn-light a {
+  letter-spacing: 3px;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.butn-light a:after {
+  content: '';
+  width: 0;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  z-index: 1;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+.butn-light a span {
+  position: relative;
+  z-index: 2;
+}
+.butn-light a:hover:after {
+  width: 100%;
+  left: 0;
+  -webkit-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+.butn-light a:hover span {
+  color: #222;
 }
