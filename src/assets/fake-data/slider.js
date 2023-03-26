@@ -29,3 +29,5 @@ const slider = [
         desc_2: 'The Perfect Base For You',
     }
 ]
+
+export default slider
