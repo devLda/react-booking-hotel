@@ -1,0 +1,191 @@
+.footer-title {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.footer-about-text {
+  font-size: 15px;
+  color: #fff;
+  margin: 0;
+}
+
+.footer-about-text b {
+  color: #aa8453;
+}
+
+.footer-about-social-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.footer-about-social-list a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  background-color: transparent;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.footer-about-social-list a + a {
+  margin-left: 15px;
+}
+
+.footer-about-social-list a:hover {
+  background-color: transparent;
+  color: #aa8453;
+}
+
+.footer-about-text li,
+.footer-explore-list li {
+  margin-top: 8px;
+}
+
+.footer-explore-list li a {
+  position: relative;
+  display: block;
+  font-size: 15px;
+  color: #fff;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.footer-explore-list li a:hover {
+  padding-left: 15px;
+  color: #aa8453;
+}
+
+.footer-explore-list li a:before {
+  position: absolute;
+  top: 55%;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  content: "";
+  background-color: #aa8453;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  opacity: 0;
+  border-radius: 50%;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.footer-explore-list li a:hover:before {
+  opacity: 1;
+}
+
+.footer-contact {
+  position: relative;
+  display: block;
+}
+
+.footer-contact .footer-title {
+  margin-bottom: 20px;
+}
+
+.footer-contact-text {
+  font-size: 15px;
+  margin: 0;
+  color: #adadad;
+  padding-bottom: 20px;
+}
+
+.footer-contact-info p {
+  margin: 0;
+}
+
+.footer-contact-phone {
+  font-family: "Gilda Display", serif;
+  font-size: 24px;
+  color: #fff;
+  font-weight: 400;
+  display: block;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.footer-contact-phone:hover {
+  color: #fff;
+}
+
+.footer-contact-mail {
+  font-size: 15px;
+  line-height: 3em;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.footer-contact-mail:hover {
+  color: #fff;
+}
+
+.footer-contact-mail:before {
+  position: absolute;
+  bottom: 9px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #aa8453;
+  content: "";
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+.footer-contact-mail:hover:before {
+  background-color: #aa8453;
+}
+
+footer .social-media li {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 0;
+}
+
+footer .social-media li:first-of-type:hover {
+  background-color: #3b5998;
+}
+
+footer .social-media li:nth-of-type(2):hover {
+  background-color: #1da1f2;
+}
+
+footer .social-media li:nth-of-type(3):hover {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+}
+
+footer .social-media li:last-of-type:hover {
+  background-color: #00af87;
+}
