@@ -17,12 +17,9 @@
   margin-bottom: 5px;
 }
 
-.section-subtitle span {
-  color: #aa8453;
-}
-
 .section-title {
   font-size: 46px;
+  letter-spacing: 0.2rem;
   font-family: "Gilda Display", serif;
   font-weight: 400;
   color: #222;
@@ -31,10 +28,38 @@
   line-height: 1.25em;
 }
 
-.section-title span {
-  color: #fff;
+.about p {
+  margin-bottom: 20px;
+  padding-right: 40px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75em;
+  color: #666;
+  opacity: .8;
 }
 
+.about .reservation {
+  display: flex;
+  align-items: center;
+}
+
+.about .reservation .icon {
+  position: relative;
+  top: 4px; 
+}
+
+.about .reservation i{
+  font-size: 60px;
+  color: #8e6d45;
+} 
+
+.about .reservation p{
+  display: inline;
+  line-height: 0;
+  margin-bottom: 0;
+}
+/* 
 .reservations {
   display: flex;
   align-items: center;
@@ -65,4 +90,4 @@
 }
 .reservations .text a.color-1 {
   color: #fff;
-}
+} */

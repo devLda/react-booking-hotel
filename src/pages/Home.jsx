@@ -21,7 +21,7 @@ const Home = () => {
               <i class="star-rating"></i>
               <i class="star-rating"></i>
             </span>
-            <div class="section-subtitle">The Anh Oct Hotel</div>
+            <div class="section-subtitle">Anh Oct Hotel</div>
             <div class="section-title">Enjoy a Luxury Experience</div>
             <p>
               Welcome to the best five-star deluxe hotel in New York. Hotel
@@ -35,13 +35,13 @@ const Home = () => {
               parturient monte nascete ridiculus mus nellentesque habitant
               morbine.
             </p>
-            <div class="reservations">
-              <div class="icon">
-                <span class="flaticon-call"></span>
+            <div className="reservation">
+              <div className="icon">
+                <i className="ri-phone-fill"></i>
               </div>
-              <div class="text">
-                <p>Reservation</p>
-                <a href="tel:855-100-4444">855 100 4444</a>
+              <div className="call ml-3">
+                <p>Reservation</p><br/>
+                <span>855 100 4444</span> 
               </div>
             </div>
           </div>
