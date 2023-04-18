@@ -1,0 +1,200 @@
+.room-item {
+  --alignImg: 1rem;
+  background: #f8f5f0;
+}
+
+.room-item .item {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.room-item .item:hover img {
+  -webkit-filter: none;
+  filter: none;
+  -webkit-transform: scale(1.09, 1.09);
+  transform: scale(1.09, 1.09);
+  -webkit-filter: brightness(70%);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+}
+.room-item .item:hover .con {
+  bottom: 0;
+}
+.room-item .item img {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.room-item .item .category {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 3;
+  writing-mode: vertical-rl;
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  text-orientation: mixed;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-family: "Barlow Condensed", sans-serif;
+  padding: 10px 3px;
+  line-height: 1.5em;
+}
+.room-item .item .category a {
+  color: #fff;
+}
+.room-item .item .category:hover {
+  color: #fff;
+}
+.room-item .item .con {
+  padding: 20px;
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  width: 100%;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: left;
+  z-index: 20;
+  height: auto;
+  box-sizing: border-box;
+  background: -moz-linear-gradient(
+    top,
+    transparent 0,
+    rgba(0, 0, 0, 0.1) 2%,
+    rgba(0, 0, 0, 0.75) 90%
+  );
+  background: -webkit-linear-gradient(
+    top,
+    transparent 0,
+    rgba(0, 0, 0, 0.01) 2%,
+    rgba(0, 0, 0, 0.75) 90%
+  );
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    rgba(0, 0, 0, 0.01) 2%,
+    rgba(0, 0, 0, 0.75) 90%
+  );
+}
+.room-item .item .con h6,
+.room-item .item .con h6 a {
+  position: relative;
+  color: #fff;
+  font-size: 15px;
+  font-family: "Barlow Condensed", sans-serif;
+  display: inline;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.room-item .item .con h6 i {
+  font-size: 6px;
+  margin-right: 2px;
+}
+.room-item .item .con h5,
+.room-item .item .con h5 a {
+  position: relative;
+  color: #fff;
+  font-size: 27px;
+  font-weight: 400;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.room-item .item .con p {
+  color: #fff;
+  font-size: 20px;
+}
+.room-item .item .con i {
+  color: #fff;
+  font-size: 18px;
+}
+.room-item .item .con i:hover {
+  color: #fff;
+}
+.room-item .item .con .butn-light {
+  margin-left: 0;
+  border-radius: 30px;
+  border-color: #666;
+  padding: 11px 30px;
+}
+.room-item .item .con .butn-light:hover {
+  border-color: #aa8453;
+}
+
+.room-item .item-room {
+  padding: 0 var(--alignImg);
+}
+
+.room-item .item-room:first-child,
+.room-item .item-room:last-child {
+  margin-left: - var(--alignImg);
+  margin-right: - var(--alignImg);
+}
+
+/* line animation */
+.room-item .item .line {
+  text-align: center;
+  height: 1px;
+  width: 60px;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  margin: auto 0 30px;
+}
+.room-item .item:hover .line {
+  width: 100%;
+  transition-property: all;
+  transition-duration: 0.8s;
+  transition-timing-function: ease-in-out;
+}
+
+.o-hidden {
+  overflow: hidden;
+}
+.position-re {
+  position: relative;
+}
+
+/* Permanlink */
+
+.room-item .con .permalink {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #fff;
+  height: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  display: inline;
+}
+.room-item .con .permalink a {
+  color: #fff;
+  text-align: right;
+}
+.room-item .con .permalink i {
+  font-size: 10px;
+  text-align: right;
+}
+.room-item .permalink a:hover,
+.room-item .permalink i:hover {
+  color: #aa8453;
+}
