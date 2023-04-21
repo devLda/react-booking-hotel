@@ -1,13 +1,15 @@
 import React from "react";
-import SliderHome from "../components/UI/slider/SliderHome";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import room1 from "../assets/img/rooms/1.jpg";
-import room2 from "../assets/img/rooms/2.jpg";
-import room4 from "../assets/img/rooms/4.jpg";
-import room8 from "../assets/img/rooms/8.jpg";
-import sliders from "../assets/fake-data/slider.js";
-import "../styles/home.css";
+import SliderHome from "../components/UI/slider/SliderHome";
 import RoomItem from "../components/UI/room_item/RoomItem";
+import CommentHome from "../components/UI/comment/CommentHome";
+
+import room from "../assets/fake-data/roomhome.js";
+import sliders from "../assets/fake-data/slider.js";
+
+import "../styles/home.css";
+import Brand from "../components/UI/brand/Brand";
 
 const Home = () => {
   return (
@@ -50,10 +52,10 @@ const Home = () => {
             </div>
           </div>
           <div class="px-3 w-3/12">
-            <img src={room8} alt="room 8" class="mt-20 mb-7" />
+            <img src={room[7].image} alt="room 8" class="mt-20 mb-7" />
           </div>
           <div class="px-3 w-3/12">
-            <img src={room2} alt="room 2" />
+            <img src={room[1].image} alt="room 2" />
           </div>
         </div>
       </section>
@@ -66,15 +68,35 @@ const Home = () => {
           </div>
 
           <div className="flex justify-between">
-            <RoomItem wItem="w-4/12" imgItem={room1} />
-            <RoomItem wItem="w-4/12" imgItem={room1} />
-            <RoomItem wItem="w-4/12" imgItem={room1} />
+            <RoomItem wItem="w-4/12" imgItem={room[0]} />
+            <RoomItem wItem="w-4/12" imgItem={room[1]} />
+            <RoomItem wItem="w-4/12" imgItem={room[2]} />
           </div>
           <div className="flex justify-between">
-            <RoomItem wItem="w-6/12" imgItem={room4} />
-            <RoomItem wItem="w-6/12" imgItem={room4} />
+            <RoomItem wItem="w-6/12" imgItem={room[3]} />
+            <RoomItem wItem="w-6/12" imgItem={room[6]} />
           </div>
         </div>
+      </section>
+
+      <section className="testimonials section-padding">
+        <div className="container z-10 relative flex justify-center">
+          <div className="md:w-8/12">
+            <div class="testimonials-box">
+              <div class="head-box">
+                <h6>Testimonials</h6>
+                <h4>What Client's Say?</h4>
+                <div class="line"></div>
+              </div>
+
+              <CommentHome />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="clients">
+        <Brand/>
       </section>
     </>
   );

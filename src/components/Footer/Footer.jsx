@@ -24,22 +24,22 @@ const Footer = () => {
                 <ul className="social-media">
                   <li>
                     <a href="https://www.facebook.com">
-                      <i class="ri-facebook-fill"></i>
+                      <i class="fa-brands fa-facebook-f"></i>
                     </a>
                   </li>
                   <li>
                     <a href="https://twitter.com/?lang=vi">
-                      <i class="ri-twitter-fill"></i>
+                      <i class="fa-brands fa-twitter"></i>
                     </a>
                   </li>
                   <li>
                     <a href="https://www.instagram.com/">
-                      <i class="ri-instagram-fill"></i>
+                      <i class="fa-brands fa-instagram"></i>
                     </a>
                   </li>
                   <li>
-                    <a href="https://www.tripadvisor.com/">
-                      <i class="ri-plane-line"></i>
+                    <a href="https://www.telegram.com/">
+                      <i class="fa-brands fa-telegram"></i>
                     </a>
                   </li>
                 </ul>

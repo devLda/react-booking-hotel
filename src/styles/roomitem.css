@@ -1,5 +1,6 @@
 .room-item {
-  --alignImg: 1rem;
+  --alignPaddingImg: 1rem;
+  --alignMarginImg: -1rem;
   background: #f8f5f0;
 }
 
@@ -94,7 +95,7 @@
   font-size: 15px;
   font-family: "Barlow Condensed", sans-serif;
   display: inline;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 .room-item .item .con h6 i {
@@ -110,6 +111,11 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.room-item .item .con h5 a{
+    font-family: 'Gilda Display', serif;
+}
+
 .room-item .item .con p {
   color: #fff;
   font-size: 20px;
@@ -132,13 +138,13 @@
 }
 
 .room-item .item-room {
-  padding: 0 var(--alignImg);
+  padding: 0 var(--alignPaddingImg);
 }
 
 .room-item .item-room:first-child,
 .room-item .item-room:last-child {
-  margin-left: - var(--alignImg);
-  margin-right: - var(--alignImg);
+  margin-left: var(--alignMarginImg);
+  margin-right: var(--alignMarginImg);
 }
 
 /* line animation */
@@ -197,4 +203,23 @@
 .room-item .permalink a:hover,
 .room-item .permalink i:hover {
   color: #aa8453;
+}
+
+/* facilities */
+.room-item .facilities ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.room-item .facilities ul li {
+  color: #fff;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 1.2em;
+  padding-bottom: 20px;
+  float: left;
+}
+.room-item .facilities ul li i {
+  margin-right: 10px;
 }

@@ -192,7 +192,7 @@ const SliderHome = ({ sliders }) => {
         </a>
       </div>
 
-      <div className="booking-wrapper">
+      {/* <div className="booking-wrapper">
         <div className="container">
           <div className="relative rounded-none clearfix">
             <form action="#" className="p-0 relative clearfix">
@@ -263,7 +263,7 @@ const SliderHome = ({ sliders }) => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

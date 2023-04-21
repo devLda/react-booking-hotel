@@ -242,8 +242,9 @@
 }
 .reservation .icon i {
   color: #FFF;
-  font-size: 32px;
-  padding-top: 8px;
+  font-size: 28px;
+  padding-left: 8px;
+  padding-bottom: 8px;
   transform: rotate(90deg);
 }
 .reservation .icon:hover {

@@ -31,12 +31,12 @@
 .about p {
   margin-bottom: 20px;
   padding-right: 40px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.75em;
   color: #666;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .about .reservation {
@@ -46,48 +46,41 @@
 
 .about .reservation .icon {
   position: relative;
-  top: 4px; 
+  top: 4px;
 }
 
-.about .reservation i{
+.about .reservation i {
   font-size: 60px;
   color: #8e6d45;
-} 
+}
 
-.about .reservation p{
+.about .reservation p {
   display: inline;
   line-height: 0;
   margin-bottom: 0;
 }
-/* 
-.reservations {
-  display: flex;
-  align-items: center;
-}
-.reservations .icon {
+
+.testimonials {
+  background-image: url("../assets/img/slider/2.jpg");
+  background-attachment: fixed;
   position: relative;
-  top: 3px;
+  background-size: cover;
 }
-.reservations .icon span {
-  font-size: 40px;
-  color: #8e6d45;
+
+.testimonials::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0.3;
+  background-color: #000;
 }
-.reservations .icon.color-1 span {
-  font-size: 40px;
-  color: #fff;
+
+/* Clients */
+.clients {
+  background-color: #fff;
 }
-.reservations .text {
-  margin-left: 10px;
-}
-.reservations .text p {
-  font-size: 15px;
-  margin: 0;
-}
-.reservations .text a {
-  font-size: 27px;
-  color: #8e6d45;
-  letter-spacing: -1px;
-}
-.reservations .text a.color-1 {
-  color: #fff;
-} */
+
