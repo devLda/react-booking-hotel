@@ -1,7 +1,17 @@
-import Layout from "./components/Layout/Layout";
+import { Route, Routes } from "react-router-dom";
+import path from "./utils/path";
+import { Public, Login, Home } from "./pages/public";
 
 function App() {
-  return <Layout/>;
+  return (
+    <Routes>
+      <Route path={path.PUBLIC} element={<Public />}>
+        <Route path={path.HOME} element={<Home />} />
+      </Route>
+
+      <Route path={path.LOGIN} element={<Login />} />
+    </Routes>
+  );
 }
 
 export default App;
