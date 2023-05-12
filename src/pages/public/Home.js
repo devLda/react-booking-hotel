@@ -10,8 +10,13 @@ import sliders from "../../assets/fake-data/slider.js";
 
 import "../../styles/home.css";
 import Brand from "../../components/UI/brand/Brand";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  // const {rooms} = useSelector(state => state.app)
+  const {isLoggedIn, current} = useSelector(state => state.user)
+  console.log({isLoggedIn, current})
+  // console.log('rooms',rooms)
   return (
     <>
       <SliderHome sliders={sliders} />

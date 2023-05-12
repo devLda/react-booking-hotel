@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import logo from "../../assets/img/logo.png";
 import "../../styles/header.css";
 
 const Header = () => {
+  const [backColor, setBackColor] = useState("bg-transparent");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setBackColor("bg-white");
+      } else {
+        setBackColor("bg-transparent");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className=" pt-7">
+    <header
+      id="header"
+      className={`pt-7 fixed w-full z-10 ${backColor} ${
+        backColor !== "bg-transparent" ? "shadow-lg" : "text-slate-100"
+      } md:h-24`}
+    >
       <div className="container mx-auto flex justify-between">
         <div className="logo">
           <Link to="/">
@@ -14,7 +37,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="flex items-end">
+        <nav className="flex items-end space-x-1">
           <ul className="font-normal tracking-widest">
             <li>
               <Link to="/">HOME</Link>
@@ -41,9 +64,18 @@ const Header = () => {
                 </svg>
               </Link>
               <ul>
-                <li> <Link to = "/" > Deluxe Room </Link></li>
-                <li> <Link to = "/" > Premium Room </Link></li>
-                <li> <Link to = "/" > Premium Deluxe Room </Link></li>
+                <li>
+                  {" "}
+                  <Link to="/"> Deluxe Room </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link to="/"> Premium Room </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link to="/"> Premium Deluxe Room </Link>
+                </li>
               </ul>
             </li>
             <li className="sub-nav">
@@ -65,9 +97,18 @@ const Header = () => {
                 </svg>
               </Link>
               <ul>
-                <li> <Link to = "/" > SPA </Link></li>
-                <li> <Link to = "/" > Restaurant </Link></li>
-                <li> <Link to = "/" > Extra </Link></li>
+                <li>
+                  {" "}
+                  <Link to="/"> SPA </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link to="/"> Restaurant </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link to="/"> Extra </Link>
+                </li>
               </ul>
             </li>
             <li>
@@ -78,6 +119,9 @@ const Header = () => {
             </li>
             <li>
               <Link to="/contact">CONTACT</Link>
+            </li>
+            <li>
+              <Link to="/login">LOGIN</Link>
             </li>
           </ul>
         </nav>

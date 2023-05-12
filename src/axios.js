@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://localhost:3300/api/",
+  baseURL: "http://localhost:3300/api/",
 });
 
 instance.interceptors.request.use(function (config) {
@@ -13,7 +13,7 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
     return response.data;
 }, function(err) {
-    return err.data
+    return err.response.data
 })
 
 export default instance;
