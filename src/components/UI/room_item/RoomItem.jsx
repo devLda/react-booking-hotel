@@ -2,24 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "../../../styles/roomitem.css";
+import path from "../../../utils/path";
 
-const RoomItem = (item) => {
+const RoomItem = (props) => {
+  const { id, width, image, title } = props;
   return (
-    <div className={"item-room " + item.wItem}>
+    <div className={`item-room ${width ? width : ""}`}>
       <div class="item">
         <div class="position-re o-hidden">
-          <img src={item.imgItem.image} alt="" />
+          <img src={image ? image : ""} alt="room item" />
         </div>
         <span class="category">
           <Link to="/">Book</Link>
         </span>
         <div class="con">
-          <h6>
-            <Link to="\">{item.imgItem.price}$ / Night</Link>
-          </h6>
-          <h5>
-            <Link to="\">{item.imgItem.title}</Link>
-          </h5>
+          <h6>0-200$ / Night</h6>
+          <h5>{title ? title : ""}</h5>
           <div class="line"></div>
           <div class="row facilities">
             <div class="col col-md-7">
@@ -40,7 +38,7 @@ const RoomItem = (item) => {
             </div>
             <div class="col col-md-5 text-end">
               <div class="permalink">
-                <Link to="\">
+                <Link to={`/${path.DETAIL_ROOM}/${id}`}>
                   Details <i class="fa-solid fa-arrow-right"></i>
                 </Link>
               </div>

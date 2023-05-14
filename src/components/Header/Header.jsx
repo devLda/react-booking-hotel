@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <header
       id="header"
-      className={`pt-7 fixed w-full z-10 ${backColor} ${
+      className={`pt-7 fixed w-full z-20 ${backColor} ${
         backColor !== "bg-transparent" ? "shadow-lg" : "text-slate-100"
       } md:h-24`}
     >

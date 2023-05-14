@@ -5,18 +5,26 @@ import SliderHome from "../../components/UI/slider/SliderHome";
 import RoomItem from "../../components/UI/room_item/RoomItem";
 import CommentHome from "../../components/UI/comment/CommentHome";
 
-import room from "../../assets/fake-data/roomhome.js";
 import sliders from "../../assets/fake-data/slider.js";
 
+import { LoadingData } from "../../components/UI/loading";
 import "../../styles/home.css";
 import Brand from "../../components/UI/brand/Brand";
 import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const Home = () => {
   // const {rooms} = useSelector(state => state.app)
-  const {isLoggedIn, current} = useSelector(state => state.user)
-  console.log({isLoggedIn, current})
-  // console.log('rooms',rooms)
+  // const {isLoggedIn, current} = useSelector(state => state.user)
+  const { loaiphong, status } = useSelector((state) => state.loaiphong);
+
+  if (status === "pending") {
+    return <LoadingData />;
+  }
+
+  const room = loaiphong.slice(0, 3);
+  const suite = loaiphong.slice(3, 5);
+
   return (
     <>
       <SliderHome sliders={sliders} />
@@ -57,10 +65,14 @@ const Home = () => {
             </div>
           </div>
           <div class="px-3 w-3/12">
-            <img src={room[7].image} alt="room 8" class="mt-20 mb-7" />
+            <img
+              src={loaiphong ? loaiphong[0].images[0] : ""}
+              alt="room 8"
+              class="mt-20 mb-7"
+            />
           </div>
           <div class="px-3 w-3/12">
-            <img src={room[1].image} alt="room 2" />
+            <img src={loaiphong ? loaiphong[1].images[0] : ""} alt="room 2" />
           </div>
         </div>
       </section>
@@ -69,17 +81,30 @@ const Home = () => {
         <div className="container section-padding">
           <div class="w-full">
             <div class="section-subtitle">The Cappa Luxury Hotel</div>
-            <div class="section-title">Rooms & Suites</div>
+            <div class="section-title">Rooms &amp; Suites</div>
           </div>
 
           <div className="flex justify-between">
-            <RoomItem wItem="w-4/12" imgItem={room[0]} />
-            <RoomItem wItem="w-4/12" imgItem={room[1]} />
-            <RoomItem wItem="w-4/12" imgItem={room[2]} />
+            {room.length > 0 &&
+              room.map((item) => (
+                <RoomItem
+                  id={item?._id}
+                  width="w-4/12"
+                  image={(item.images || [])[0]}
+                  title={item?.TenLoaiPhong}
+                />
+              ))}
           </div>
           <div className="flex justify-between">
-            <RoomItem wItem="w-6/12" imgItem={room[3]} />
-            <RoomItem wItem="w-6/12" imgItem={room[6]} />
+            {suite.length > 0 &&
+              suite.map((item) => (
+                <RoomItem
+                  id={item?._id}
+                  width="w-6/12"
+                  image={(item.images || [])[0]}
+                  title={item?.TenLoaiPhong}
+                />
+              ))}
           </div>
         </div>
       </section>
@@ -101,10 +126,10 @@ const Home = () => {
       </section>
 
       <section class="clients">
-        <Brand/>
+        <Brand />
       </section>
     </>
   );
-}
+};
 
-export default Home
+export default Home;

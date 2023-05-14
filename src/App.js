@@ -1,25 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useEffect} from 'react'
-import { Route, Routes } from "react-router-dom";
-import path from "./utils/path";
-import { Public, Login, Home, FinalRegister } from "./pages/public";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getAllRooms } from './store/app/asyncAction';
+import { getAllRooms } from "./store/app/asyncAction";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routers from "./routes/Routers";
+import { apiGetAllLoaiPhong } from "./store/loaiphong/asyncAction";
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllRooms())
-  }, [])
+    dispatch(getAllRooms());
+    dispatch(apiGetAllLoaiPhong());
+  }, []);
   return (
-    <Routes>
-      <Route path={path.PUBLIC} element={<Public />}>
-        <Route path={path.HOME} element={<Home />} />
-      </Route>
-
-      <Route path={path.LOGIN} element={<Login />} />
-      <Route path={path.FINAL_REGISTER} element={<FinalRegister />} />
-    </Routes>
+    <Router>
+      <Routers />
+    </Router>
   );
 }
 
