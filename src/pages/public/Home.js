@@ -11,14 +11,12 @@ import { LoadingData } from "../../components/UI/loading";
 import "../../styles/home.css";
 import Brand from "../../components/UI/brand/Brand";
 import { useSelector } from "react-redux";
-// import { useSelector } from "react-redux";
 
 const Home = () => {
   // const {rooms} = useSelector(state => state.app)
   // const {isLoggedIn, current} = useSelector(state => state.user)
   const { loaiphong, status } = useSelector((state) => state.loaiphong);
-
-  if (status === "pending") {
+  if (status === "pending" || !loaiphong) {
     return <LoadingData />;
   }
 

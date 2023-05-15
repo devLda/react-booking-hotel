@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 export default function HorizontalLinearStepper(props) {
   const { steps, activeStep } = props;
 
-  console.log(steps, activeStep);
-
   //   const [activeStep, setActiveStep] = React.useState(0);
   //   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -55,10 +53,8 @@ export default function HorizontalLinearStepper(props) {
   //     setActiveStep(0);
   //   };
 
-  console.log("re-render");
-
   return (
-    <Box sx={{ width: "100%", marginBottom: "20px" }}>
+    <Box sx={{ width: "50%", marginBottom: "20px" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           //   const stepProps = {};

@@ -1,6 +1,7 @@
 import axios from "../axios";
 
-export const apiGetAllRoom = () => axios ({
-    url: '/phong',
-    method: 'get'
-})
+export const apiGetAllRoom = () =>
+  axios({
+    url: "/phong/multiphong",
+    method: "get",
+  });

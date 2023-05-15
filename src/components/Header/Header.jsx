@@ -7,6 +7,8 @@ import "../../styles/header.css";
 const Header = () => {
   const [backColor, setBackColor] = useState("bg-transparent");
 
+  const isLoggedIn = JSON.parse(localStorage.getItem("persist:app/user"));
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -111,7 +113,7 @@ const Header = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            {/* <li>
               <Link to="/moment">MOMENT</Link>
             </li>
             <li>
@@ -119,10 +121,18 @@ const Header = () => {
             </li>
             <li>
               <Link to="/contact">CONTACT</Link>
-            </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li>
+            </li> */}
+            {isLoggedIn.isLoggedIn !== "true" && (
+              <li>
+                <Link to="/login">LOGIN</Link>
+              </li>
+            )}
+
+            {isLoggedIn.isLoggedIn === "true" && (
+              <li>
+                <Link to="/login">Logged in</Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

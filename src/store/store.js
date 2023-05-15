@@ -6,12 +6,12 @@ import { persistReducer, persistStore } from "redux-persist";
 import loaiphongSlice from "./loaiphong/loaiphongSlice";
 
 const commonConfig = {
-  key: "app/user",
   storage,
 };
 
 const userConfig = {
   ...commonConfig,
+  key: "app/login",
   whitelist: ["isLoggedIn", "token"],
 };
 

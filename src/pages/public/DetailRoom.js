@@ -48,9 +48,17 @@ const DetailRoom = () => {
             </div>
           </div>
 
-          <div className="banner-content flex">
+          <div className="content-detail flex">
             <div className="shrink-[2]">
               <p className="mb-8">{Loai.current && Loai.current.MoTa}</p>
+
+              <div className="img-detail w-11/12 my-10">
+                <img
+                  className="h-full w-full"
+                  src={Loai.current.images[0]}
+                  alt={Loai.current.TenLoaiPhong}
+                />
+              </div>
 
               <div className="flex flex-wrap">
                 <div className="w-6/12 flex-1">

@@ -7,7 +7,7 @@ export const loaiphongSlice = createSlice({
   initialState: {
     loaiphong: null,
     isLoading: false,
-    status: "pending",
+    statusLP: "pending",
   },
   reducers: {},
 
@@ -15,18 +15,18 @@ export const loaiphongSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(action.apiGetAllLoaiPhong.pending, (state) => {
       state.isLoading = true;
-      state.status = "pending";
+      state.statusLP = "pending";
     });
 
     builder.addCase(action.apiGetAllLoaiPhong.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.status = "resolved";
+      state.statusLP = "resolved";
       state.loaiphong = action.payload;
     });
 
     builder.addCase(action.apiGetAllLoaiPhong.rejected, (state, action) => {
       state.isLoading = false;
-      state.status = "rejected";
+      state.statusLP = "rejected";
       state.errorMessage = action.payload.message;
     });
   },

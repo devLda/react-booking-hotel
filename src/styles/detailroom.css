@@ -18,7 +18,7 @@
   background-color: #000;
 }
 
-.banner-content h6 {
+.content-detail h6 {
   position: relative;
   font-family: "Alegreya variant0", Tofu;
   font-size: 24px;
@@ -26,7 +26,11 @@
   margin-bottom: 20px;
 }
 
-.banner-content p {
+.content-detail .img-detail {
+  height: 600px;
+}
+
+.content-detail p {
   font-family: "Alegreya variant0", Tofu;
   font-size: 16px;
   font-weight: 400;
@@ -35,7 +39,7 @@
   margin-bottom: 20px;
 }
 
-.banner-content button {
+.content-detail button {
   font-weight: 400;
   text-transform: uppercase;
   border-radius: 4px;
@@ -49,11 +53,11 @@
   cursor: pointer;
 }
 
-.banner-content button:hover span {
+.content-detail button:hover span {
   padding-right: 25px;
 }
 
-.banner-content button span {
+.content-detail button span {
   font-size: 20px;
   cursor: pointer;
   display: inline-block;
@@ -61,7 +65,7 @@
   transition: 0.5s;
 }
 
-.banner-content button span:after {
+.content-detail button span:after {
   content: "\00bb";
   position: absolute;
   opacity: 0;
@@ -71,7 +75,7 @@
   transition: 0.5s;
 }
 
-.banner-content button:hover span:after {
+.content-detail button:hover span:after {
   opacity: 1;
   right: 0;
 }
