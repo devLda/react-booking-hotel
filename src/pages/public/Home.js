@@ -1,4 +1,4 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import SliderHome from "../../components/UI/slider/SliderHome";
@@ -10,22 +10,39 @@ import sliders from "../../assets/fake-data/slider.js";
 import { LoadingData } from "../../components/UI/loading";
 import "../../styles/home.css";
 import Brand from "../../components/UI/brand/Brand";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Search from "../../components/UI/search/Search";
+import { apiGetAllLoaiPhong } from "../../store/loaiphong/asyncAction";
 
 const Home = () => {
   // const {rooms} = useSelector(state => state.app)
   // const {isLoggedIn, current} = useSelector(state => state.user)
-  const { loaiphong, status } = useSelector((state) => state.loaiphong);
+  const {status, loaiphong} = useSelector(state => state.loaiphong)
+
+  const [LoaiPhong, setLoaiPhong] = useState([])
+  
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(apiGetAllLoaiPhong())
+    .then( res => {
+      console.log(res)
+    });
+  }, [dispatch]);
+
+  
   if (status === "pending" || !loaiphong) {
     return <LoadingData />;
-  }
+  } 
 
-  const room = loaiphong.slice(0, 3);
-  const suite = loaiphong.slice(3, 5);
+  const room = LoaiPhong.slice(0, 3);
+  const suite = LoaiPhong.slice(3, 5);
 
   return (
     <>
       <SliderHome sliders={sliders} />
+
+      <Search />
 
       <section class="about section-padding">
         <div class="container flex">

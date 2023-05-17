@@ -122,13 +122,13 @@ const Header = () => {
             <li>
               <Link to="/contact">CONTACT</Link>
             </li> */}
-            {isLoggedIn.isLoggedIn !== "true" && (
+            {isLoggedIn?.isLoggedIn !== "true" && (
               <li>
                 <Link to="/login">LOGIN</Link>
               </li>
             )}
 
-            {isLoggedIn.isLoggedIn === "true" && (
+            {isLoggedIn?.isLoggedIn === "true" && (
               <li>
                 <Link to="/login">Logged in</Link>
               </li>

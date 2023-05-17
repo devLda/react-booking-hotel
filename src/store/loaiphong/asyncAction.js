@@ -7,6 +7,6 @@ export const apiGetAllLoaiPhong = createAsyncThunk(
     const response = await api.apiGetAllLoaiPhong();
 
     if (!response.success) return rejectWithValue(response);
-    return response.loaiphong;
+    return response.data;
   }
 );
