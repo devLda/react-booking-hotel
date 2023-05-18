@@ -17,6 +17,7 @@ import {
 import Booking from "../pages/public/Booking";
 import DetailRoom from "../pages/public/DetailRoom";
 import path from "../utils/path";
+import SearchPage from "../pages/public/SearchPage";
 
 const Routers = () => {
   const routes = useRoutes([
@@ -36,6 +37,10 @@ const Routers = () => {
         {
           path: `${path.BOOKING}/:idloaiphong`,
           element: <Booking />,
+        },
+        {
+          path: `${path.SEARCH}`,
+          element: <SearchPage />,
         },
       ],
     },

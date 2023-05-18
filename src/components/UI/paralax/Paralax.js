@@ -2,7 +2,8 @@ import React from "react";
 
 const Paralax = ({ title, content }) => {
   return (
-    <div className="container z-10 relative flex justify-center h-full items-end">
+    <div className="banner">
+      <div className="container z-10 relative flex justify-center h-full items-end">
       <div className="md:w-8/12 lg:w-full">
         <div class="relative bg-transparent py-8 mb-24">
           <div class="head-box">
@@ -15,6 +16,7 @@ const Paralax = ({ title, content }) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

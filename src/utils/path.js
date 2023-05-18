@@ -2,6 +2,7 @@ const path = {
   URL_API: "http://localhost:3300/api/",
   PUBLIC: "",
   HOME: "home",
+  SEARCH: "search",
   DETAIL_ROOM: "detail-room",
   BOOKING: "booking",
   ALL: "*",

@@ -17,7 +17,7 @@ import { apiGetAllLoaiPhong } from "../../store/loaiphong/asyncAction";
 const Home = () => {
   // const {rooms} = useSelector(state => state.app)
   // const {isLoggedIn, current} = useSelector(state => state.user)
-  const {status, loaiphong} = useSelector(state => state.loaiphong)
+  const {status} = useSelector(state => state.loaiphong)
 
   const [LoaiPhong, setLoaiPhong] = useState([])
   
@@ -27,13 +27,23 @@ const Home = () => {
     dispatch(apiGetAllLoaiPhong())
     .then( res => {
       console.log(res)
+      if(res.meta.requestStatus === "fulfilled"){
+        setLoaiPhong(res.payload)
+      }
     });
   }, [dispatch]);
 
   
-  if (status === "pending" || !loaiphong) {
+  if (status === "pending" || LoaiPhong.length === 0) {
     return <LoadingData />;
   } 
+
+  const LPSelect = LoaiPhong.map((item) => {
+    return {
+      id: item._id,
+      title: item.TenLoaiPhong
+    }
+  })
 
   const room = LoaiPhong.slice(0, 3);
   const suite = LoaiPhong.slice(3, 5);
@@ -42,7 +52,7 @@ const Home = () => {
     <>
       <SliderHome sliders={sliders} />
 
-      <Search />
+      <Search options={LPSelect} />
 
       <section class="about section-padding">
         <div class="container flex">
@@ -81,13 +91,13 @@ const Home = () => {
           </div>
           <div class="px-3 w-3/12">
             <img
-              src={loaiphong ? loaiphong[0].images[0] : ""}
+              src={LoaiPhong ? LoaiPhong[0].images[0] : ""}
               alt="room 8"
               class="mt-20 mb-7"
             />
           </div>
           <div class="px-3 w-3/12">
-            <img src={loaiphong ? loaiphong[1].images[0] : ""} alt="room 2" />
+            <img src={LoaiPhong ? LoaiPhong[1].images[0] : ""} alt="room 2" />
           </div>
         </div>
       </section>

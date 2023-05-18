@@ -29,9 +29,8 @@ const DetailRoom = () => {
 
   return (
     <>
-      <div className="banner">
-        <Paralax title="Anh Oct Luxury Hotel" content="Detail Room" />
-      </div>
+      <Paralax title="Anh Oct Luxury Hotel" content="Detail Room" />
+
       <section className="pt-12">
         <div className="container">
           <div class="">
