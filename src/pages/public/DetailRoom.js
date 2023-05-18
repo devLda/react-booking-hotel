@@ -25,7 +25,7 @@ const DetailRoom = () => {
     });
   }
 
-  console.log(Loai.current);
+  // console.log(Loai.current);
 
   return (
     <>

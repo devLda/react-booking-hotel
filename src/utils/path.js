@@ -1,5 +1,6 @@
 const path = {
   URL_API: "http://localhost:3300/api/",
+  URL: "http://localhost:3200",
   PUBLIC: "",
   HOME: "home",
   SEARCH: "search",

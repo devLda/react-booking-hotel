@@ -7,10 +7,10 @@ import { format } from "date-fns";
 import "../../../styles/search.css";
 import path from "../../../utils/path";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const Search = (props) => {
-  const { options } = props;
-  console.log(options);
+  const { options, setData } = props;
   const dateRef = useRef();
   const optionRef = useRef();
   const [SearchBox, setSearchBox] = useState("");
@@ -23,17 +23,19 @@ const Search = (props) => {
     },
   ]);
 
+  const [select, setSelect] = useState(options[0].id || null);
+
   const navigate = useNavigate();
 
   const handleSearch = () => {
+    // console.log(SearchBox);
     if (window.location.href.split("/")[3] !== path.SEARCH)
       navigate(`/${path.SEARCH}`, {
         state: {
           startDate: dates[0].startDate,
           endDate: dates[0].endDate,
-          adult: options.adult,
-          room: options.room,
           search: SearchBox,
+          loaiphong: optionRef.current.value,
         },
       });
   };
@@ -46,11 +48,25 @@ const Search = (props) => {
     }
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
+
+    if (window.location.href.split("/")[3] === path.SEARCH) {
+      const start = moment(dates[0].startDate).format("DD-MM-YYYY");
+      const end = moment(dates[0].endDate).format("DD-MM-YYYY");
+      console.log("start ", start);
+      console.log("end ", end);
+      setData({
+        startDate: start,
+        endDate: end,
+        search: SearchBox,
+        loaiphong: select,
+      });
+    }
+    // setData()
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dateRef, optionRef]);
+  }, [dateRef, optionRef, select, SearchBox, dates]);
 
   return (
     <div className="header">
@@ -62,14 +78,17 @@ const Search = (props) => {
             <span
               onClick={() => setOpenDate(!openDate)}
               className="headerSearchText"
-            >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
+            >{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
               dates[0].endDate,
-              "MM/dd/yyyy"
+              "dd/MM/yyyy"
             )}`}</span>
             {openDate && (
               <DateRange
                 editableDateInputs={true}
-                onChange={(item) => setDates([item.selection])}
+                onChange={(item) => {
+                  setDates([item.selection]);
+                }}
+                dateDisplayFormat="dd/MM/yyyy"
                 moveRangeOnFirstSelection={false}
                 ranges={dates}
                 className="date"
@@ -87,8 +106,13 @@ const Search = (props) => {
             />
           </div>
 
-          <div ref={optionRef} className="headerSearchItem">
-            <select name="LoaiPhong">
+          <div className="headerSearchItem">
+            <select
+              ref={optionRef}
+              name="LoaiPhong"
+              value={select}
+              onChange={(e) => setSelect(e.target.value)}
+            >
               {options &&
                 options.map((item, index) => (
                   <option key={index} value={item.id}>

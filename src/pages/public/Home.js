@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import SliderHome from "../../components/UI/slider/SliderHome";
@@ -17,33 +17,31 @@ import { apiGetAllLoaiPhong } from "../../store/loaiphong/asyncAction";
 const Home = () => {
   // const {rooms} = useSelector(state => state.app)
   // const {isLoggedIn, current} = useSelector(state => state.user)
-  const {status} = useSelector(state => state.loaiphong)
+  const { status } = useSelector((state) => state.loaiphong);
 
-  const [LoaiPhong, setLoaiPhong] = useState([])
-  
+  const [LoaiPhong, setLoaiPhong] = useState([]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(apiGetAllLoaiPhong())
-    .then( res => {
-      console.log(res)
-      if(res.meta.requestStatus === "fulfilled"){
-        setLoaiPhong(res.payload)
+    dispatch(apiGetAllLoaiPhong()).then((res) => {
+      // console.log(res)
+      if (res.meta.requestStatus === "fulfilled") {
+        setLoaiPhong(res.payload);
       }
     });
   }, [dispatch]);
 
-  
   if (status === "pending" || LoaiPhong.length === 0) {
     return <LoadingData />;
-  } 
+  }
 
   const LPSelect = LoaiPhong.map((item) => {
     return {
       id: item._id,
-      title: item.TenLoaiPhong
-    }
-  })
+      title: item.TenLoaiPhong,
+    };
+  });
 
   const room = LoaiPhong.slice(0, 3);
   const suite = LoaiPhong.slice(3, 5);

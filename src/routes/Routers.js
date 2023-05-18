@@ -35,7 +35,7 @@ const Routers = () => {
           element: <DetailRoom />,
         },
         {
-          path: `${path.BOOKING}/:idloaiphong`,
+          path: `${path.BOOKING}`,
           element: <Booking />,
         },
         {

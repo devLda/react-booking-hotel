@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAllRooms } from "./store/app/asyncAction";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routers from "./routes/Routers";

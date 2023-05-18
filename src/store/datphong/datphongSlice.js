@@ -2,19 +2,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "datphong",
   initialState: {
-    isBooked: false,
+    isBooked: "pending",
     dataBook: null,
   },
   reducers: {
     create: (state, action) => {
       console.log(action);
+      state.isBooked = "resolved";
+      // state.dataBook = action.payload.
     },
   },
 });
 
 // // Action creators are generated for each case reducer function
-export const { register } = userSlice.actions;
+export const { create } = userSlice.actions;
 
 export default userSlice.reducer;
