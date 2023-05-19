@@ -35,6 +35,8 @@ import path from "../../utils/path";
 
 import StripeCheckout from "react-stripe-checkout";
 
+import moment from "moment";
+
 // const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const phoneRegExp =
@@ -90,7 +92,7 @@ const Booking = () => {
   // const [value, setValue] = useState({});
   const [error, setError] = useState({});
 
-  const [dataDP, setDataDP] = useState({})
+  const [dataDP, setDataDP] = useState({});
 
   const getValueInput = () => {
     const allInput = document.querySelectorAll("input");
@@ -123,8 +125,8 @@ const Booking = () => {
           datphong.NgayBatDau = data.startDate;
           datphong.NgayKetThuc = data.endDate;
           datphong.TongNgay = data.TotalDay;
-          datphong.TongTien = (data.GiaPhong * data.TotalDay * 11 / 10 + 18)
-          datphong.DaThanhToan = data.GiaPhong * data.TotalDay * 3 / 10
+          datphong.MaPhong = data.MaPhong;
+          datphong.DaThanhToan = (data.GiaPhong * data.TotalDay * 3) / 10;
 
           datphong.TenKH = res.TenKH;
           datphong.SDT = res.SDT;
@@ -133,7 +135,7 @@ const Booking = () => {
           console.log("datphong ", datphong);
           if (Object.keys(datphong).length > 0) {
             // handlePost(datphong);
-            setDataDP(datphong)
+            setDataDP(datphong);
             setOpenDialog(true);
           }
         })
@@ -160,12 +162,12 @@ const Booking = () => {
   }
 
   const handleCheckout = async (token) => {
-    setOpenDialog(false)
+    setOpenDialog(false);
 
-    const data = dataDP
+    const data = dataDP;
 
-    data.token = token
-    
+    data.token = token;
+
     console.log("token ", data);
 
     const response = await apiPostDP(data);
@@ -473,7 +475,7 @@ const Booking = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
-                <DialogTitle id="alert-dialog-title" sx={{fontSize: 30}}>
+                <DialogTitle id="alert-dialog-title" sx={{ fontSize: 30 }}>
                   Thanh toán đặt phòng
                 </DialogTitle>
                 <DialogContent>
@@ -482,7 +484,10 @@ const Booking = () => {
                       Vui lòng thanh toán 30% tiền đặt cọc để hoàn tất quá trình đặt phòng
                     `}
                   </DialogContentText>
-                  <DialogContentText id="alert-dialog-description" sx={{ color: "red"}}>
+                  <DialogContentText
+                    id="alert-dialog-description"
+                    sx={{ color: "red" }}
+                  >
                     {`
                       Lưu ý: Chưa bao gồm thuế VAT và phí dịch vụ phát sinh 
                     `}
@@ -502,9 +507,7 @@ const Booking = () => {
                     Không
                   </Button>
                   <StripeCheckout
-                    amount={
-                      ((data?.TotalDay * data?.GiaPhong * 300) / 10) 
-                    }
+                    amount={(data?.TotalDay * data?.GiaPhong * 300) / 10}
                     token={handleCheckout}
                     currency="USD"
                     stripeKey="pk_test_51N9Nf4CcdPVMLpZJbiVwvUbIEHXdzq2iOdtO84r1F2N6NTbg8AY85ahuFycJ41CaxYNnpv44r4hqbSLfO3rg0AFs00s0OKdR5e"
