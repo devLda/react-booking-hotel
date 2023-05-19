@@ -11,7 +11,7 @@ export const userSlice = createSlice({
     create: (state, action) => {
       console.log(action);
       state.isBooked = "resolved";
-      // state.dataBook = action.payload.
+      state.dataBook = action.payload;
     },
   },
 });

@@ -15,7 +15,7 @@ const SearchPage = () => {
   const { isLoading } = useSelector((state) => state.phong);
   const { loaiphong } = useSelector((state) => state.loaiphong);
   const location = useLocation();
-  console.log("query ", location);
+  // console.log("query ", location);
 
   const [query, setQuery] = useState({});
 
@@ -24,8 +24,8 @@ const SearchPage = () => {
   const [roomFilter, setRoomFilter] = useState([]);
 
   const [infoPhong, setInfoPhong] = useState({
-    startDate: moment(location.state.startDate).format("dd/MM/yyyy"),
-    endDate: moment(location.state.endDate).format("dd/MM/yyyy"),
+    startDate: moment(location.state.startDate).format("DD/MM/YYYY"),
+    endDate: moment(location.state.endDate).format("DD/MM/YYYY"),
   });
 
   const filterByDate = (start, end, phongs) => {
@@ -33,18 +33,16 @@ const SearchPage = () => {
     let avail = false;
     for (const item of phongs) {
       if (item.LichDat.length > 0) {
-        for (const booking of item) {
+        for (const booking of item.LichDat) {
           if (
-            !moment(
-              moment(start).isBetween(booking.fromdate, booking.todate)
-            ) &&
-            !moment(moment(start).isBetween(booking.fromdate, booking.todate))
-          ) {
+            !moment(start, "DD-MM-YYYY").isBetween( moment(booking.NgayBatDau, "DD-MM-YYYY"), moment(booking.NgayKetThuc, "DD-MM-YYYY"))
+            && !moment(end, "DD-MM-YYYY").isBetween( moment(booking.NgayBatDau, "DD-MM-YYYY"), moment(booking.NgayKetThuc, "DD-MM-YYYY"))
+            ) {
             if (
-              start !== booking.fromdate &&
-              start !== booking.todate &&
-              end !== booking.fromdate &&
-              end !== booking.todate
+              start !== booking.NgayBatDau &&
+              start !== booking.NgayKetThuc &&
+              end !== booking.NgayBatDau &&
+              end !== booking.NgayKetThuc
             ) {
               avail = true;
             }
@@ -56,7 +54,6 @@ const SearchPage = () => {
         tempRoom.push(item);
       }
     }
-
     setQuery({});
     setRoomFilter(tempRoom);
   };
@@ -75,7 +72,6 @@ const SearchPage = () => {
       const { search, loaiphong, ...dates } = query;
       setInfoPhong(dates);
       filterByDate(query.startDate, query.endDate, Phong);
-      // console.log("filter ", roomFilter);
     }
   }, [query]);
 
@@ -103,8 +99,8 @@ const SearchPage = () => {
       <Search options={LPSelect} setData={setQuery} />
 
       <div className="container">
-        {Phong &&
-          Phong?.map((item, index) => (
+        { roomFilter &&
+          roomFilter?.map((item, index) => (
             <ItemBooking key={index} phong={item} infoPhong={infoPhong} />
           ))}
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps*/ 
 import { DateRange } from "react-date-range";
 import { useRef, useState, useEffect } from "react";
 import "react-date-range/dist/styles.css"; // main css file
@@ -52,8 +53,8 @@ const Search = (props) => {
     if (window.location.href.split("/")[3] === path.SEARCH) {
       const start = moment(dates[0].startDate).format("DD-MM-YYYY");
       const end = moment(dates[0].endDate).format("DD-MM-YYYY");
-      console.log("start ", start);
-      console.log("end ", end);
+      // console.log("start ", start);
+      // console.log("end ", end);
       setData({
         startDate: start,
         endDate: end,

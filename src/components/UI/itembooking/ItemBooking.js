@@ -18,11 +18,16 @@ const ItemBooking = ({ phong, infoPhong }) => {
 
     dispatch(
       create({
-        startDate: infoPhong?.startDate,
-        endDate: infoPhong?.endDate,
+        IDPhong: phong?._id,
         LoaiPhong: phong?.LoaiPhong._id,
+        MaPhong: phong?.MaPhong,
+        TenLoaiPhong: phong?.LoaiPhong.TenLoaiPhong,
         GiaPhong: phong?.GiaPhong,
         SoNguoi: phong?.SoNguoi,
+        Tang: phong?.Tang,
+        DienTich: phong?.DienTich,
+        startDate: infoPhong?.startDate,
+        endDate: infoPhong?.endDate,
         TotalDay: totalDay,
       })
     );
@@ -39,10 +44,13 @@ const ItemBooking = ({ phong, infoPhong }) => {
           {phong?.LoaiPhong.TenLoaiPhong}
         </h1>
         <p className="font-OpenSans text-xl mt-2">
+          Mã Phòng: {phong?.MaPhong}
+        </p>
+        <p className="font-OpenSans text-xl mt-2">
           Số người tối đa: {phong?.SoNguoi} người lớn
         </p>
         <p className="font-OpenSans text-xl mt-2">
-          Giá phòng: {phong?.GiaPhong} $/1 đêm
+          Giá phòng: {phong?.GiaPhong} $/1 ngày
         </p>
         <p className="font-OpenSans text-xl mt-2">Tầng: {phong?.Tang}</p>
 
