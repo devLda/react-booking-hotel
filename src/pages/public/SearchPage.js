@@ -28,33 +28,58 @@ const SearchPage = () => {
     endDate: moment(location.state.endDate).format("DD/MM/YYYY"),
   });
 
-  const filterByDate = (start, end, phongs) => {
-    const tempRoom = [];
-    let avail = false;
-    for (const item of phongs) {
-      if (item.LichDat.length > 0) {
-        for (const booking of item.LichDat) {
-          if (
-            !moment(start, "DD-MM-YYYY").isBetween( moment(booking.NgayBatDau, "DD-MM-YYYY"), moment(booking.NgayKetThuc, "DD-MM-YYYY"))
-            && !moment(end, "DD-MM-YYYY").isBetween( moment(booking.NgayBatDau, "DD-MM-YYYY"), moment(booking.NgayKetThuc, "DD-MM-YYYY"))
-            ) {
+  const filterRoom = (start, end, searchKey, loaiphong, phongs) => {
+    let tempRoom = [];
+    if (start && end) {
+      let avail = false;
+      for (const item of phongs) {
+        if (item.LichDat.length > 0) {
+          for (const booking of item.LichDat) {
             if (
-              start !== booking.NgayBatDau &&
-              start !== booking.NgayKetThuc &&
-              end !== booking.NgayBatDau &&
-              end !== booking.NgayKetThuc
+              !moment(start, "DD-MM-YYYY").isBetween(
+                moment(booking.NgayBatDau, "DD-MM-YYYY"),
+                moment(booking.NgayKetThuc, "DD-MM-YYYY")
+              ) &&
+              !moment(end, "DD-MM-YYYY").isBetween(
+                moment(booking.NgayBatDau, "DD-MM-YYYY"),
+                moment(booking.NgayKetThuc, "DD-MM-YYYY")
+              )
             ) {
-              avail = true;
+              if (
+                start !== booking.NgayBatDau &&
+                start !== booking.NgayKetThuc &&
+                end !== booking.NgayBatDau &&
+                end !== booking.NgayKetThuc
+              ) {
+                avail = true;
+              }
             }
           }
         }
-      }
 
-      if (avail || item.LichDat.length === 0) {
-        tempRoom.push(item);
+        if (avail || item.LichDat.length === 0) {
+          tempRoom.push(item);
+        }
       }
     }
-    setQuery({});
+
+    if (searchKey !== "") {
+      const tempSearch = tempRoom.filter((phong) =>
+        phong.LoaiPhong.TenLoaiPhong.toLowerCase().includes(
+          searchKey.toLowerCase()
+        )
+      );
+
+      tempRoom = [...tempSearch];
+    }
+
+    if (loaiphong !== "All") {
+      const tempLP = tempRoom.filter((phong) =>
+        phong.LoaiPhong._id.includes(loaiphong)
+      );
+      tempRoom = [...tempLP];
+    }
+    console.log("temproom ", tempRoom);
     setRoomFilter(tempRoom);
   };
 
@@ -70,8 +95,12 @@ const SearchPage = () => {
   useEffect(() => {
     if (Object.keys(query).length > 0) {
       const { search, loaiphong, ...dates } = query;
+      console.log("query ", query);
       setInfoPhong(dates);
-      filterByDate(query.startDate, query.endDate, Phong);
+      filterRoom(query.startDate, query.endDate, search, loaiphong, Phong);
+      // filterBySearch(search, roomFilter);
+      // filterByType(loaiphong, roomFilter);
+      setQuery({});
     }
   }, [query]);
 
@@ -89,6 +118,7 @@ const SearchPage = () => {
       title: item.TenLoaiPhong,
     };
   });
+  LPSelect.unshift({ id: "All", title: "All" });
 
   // console.log("info phong ", infoPhong);
 
@@ -96,10 +126,14 @@ const SearchPage = () => {
     <>
       <Paralax title="ANH OCT LUXURY HOTEL" content="Search Page" />
 
-      <Search options={LPSelect} setData={setQuery} />
+      <Search
+        options={LPSelect}
+        iniSelect={location.state.loaiphong}
+        setData={setQuery}
+      />
 
       <div className="container">
-        { roomFilter &&
+        {roomFilter &&
           roomFilter?.map((item, index) => (
             <ItemBooking key={index} phong={item} infoPhong={infoPhong} />
           ))}

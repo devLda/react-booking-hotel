@@ -10,6 +10,7 @@ const path = {
   LOGIN: "login",
   FINAL_REGISTER: "final-register/:status",
   RESET_PASSWORD: "reset-password/:token",
+  PROFILE: "profile",
 };
 
 export default path;

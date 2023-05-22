@@ -18,6 +18,7 @@ import Booking from "../pages/public/Booking";
 import DetailRoom from "../pages/public/DetailRoom";
 import path from "../utils/path";
 import SearchPage from "../pages/public/SearchPage";
+import Profile from "../pages/private/Profile";
 
 const Routers = () => {
   const routes = useRoutes([
@@ -41,6 +42,10 @@ const Routers = () => {
         {
           path: `${path.SEARCH}`,
           element: <SearchPage />,
+        },
+        {
+          path: `${path.PROFILE}`,
+          element: <Profile />,
         },
       ],
     },

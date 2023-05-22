@@ -24,6 +24,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("cookie ", document.cookie);
+
     dispatch(apiGetAllLoaiPhong()).then((res) => {
       // console.log(res)
       if (res.meta.requestStatus === "fulfilled") {

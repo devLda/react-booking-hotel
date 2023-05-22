@@ -14,7 +14,7 @@ const ItemBooking = ({ phong, infoPhong }) => {
     const start = moment(infoPhong?.startDate, "DD-MM-YYYY");
     const end = moment(infoPhong?.endDate, "DD-MM-YYYY");
 
-    const totalDay = moment.duration(end.diff(start)).asDays() + 1;
+    const totalDay = moment.duration(end.diff(start)).asDays();
 
     dispatch(
       create({
@@ -33,6 +33,7 @@ const ItemBooking = ({ phong, infoPhong }) => {
     );
     navigate(`/${path.BOOKING}`);
   };
+
   return (
     <div className="flex my-5 p-4 justify-center shadow-3xl rounded-md">
       <div className="w-1/4">
@@ -43,9 +44,7 @@ const ItemBooking = ({ phong, infoPhong }) => {
         <h1 className="font-OpenSans text-5xl font-bold">
           {phong?.LoaiPhong.TenLoaiPhong}
         </h1>
-        <p className="font-OpenSans text-xl mt-2">
-          Mã Phòng: {phong?.MaPhong}
-        </p>
+        <p className="font-OpenSans text-xl mt-2">Mã Phòng: {phong?.MaPhong}</p>
         <p className="font-OpenSans text-xl mt-2">
           Số người tối đa: {phong?.SoNguoi} người lớn
         </p>

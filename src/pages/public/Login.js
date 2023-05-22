@@ -5,7 +5,7 @@ import Logo from "../../assets/img/logo.png";
 import { apiForgotPassword, apiLogin, apiRegister } from "../../api/user";
 import Swal from "sweetalert2";
 import path from "../../utils/path";
-import { register } from "../../store/user/userSlice";
+import { login } from "../../store/user/userSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
@@ -43,14 +43,16 @@ const Login = () => {
     } else {
       const rs = await apiLogin(data);
       if (rs.success) {
+        console.log("login ", rs);
         dispatch(
-          register({
+          login({
             isLoggedIn: true,
-            token: rs.accessToken,
             userData: rs.userData,
           })
         );
-        navigate(`/${path.HOME}`);
+        Swal.fire("Thành công", "Đăng nhập thành công", "success").then(() => {
+          navigate(`/${path.HOME}`);
+        });
       } else Swal.fire("Thất bại", rs.mes, "error");
     }
   }, [payload, isRegister]);

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps*/ 
+/* eslint-disable react-hooks/exhaustive-deps*/
 import { DateRange } from "react-date-range";
 import { useRef, useState, useEffect } from "react";
 import "react-date-range/dist/styles.css"; // main css file
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const Search = (props) => {
-  const { options, setData } = props;
+  const { options, setData, iniSelect } = props;
   const dateRef = useRef();
   const optionRef = useRef();
   const [SearchBox, setSearchBox] = useState("");
@@ -24,7 +24,7 @@ const Search = (props) => {
     },
   ]);
 
-  const [select, setSelect] = useState(options[0].id || null);
+  const [select, setSelect] = useState(iniSelect || null);
 
   const navigate = useNavigate();
 

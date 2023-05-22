@@ -135,7 +135,14 @@ const DetailRoom = () => {
                 <button
                   className="button"
                   onClick={(e) => {
-                    navigate(`/${path.BOOKING}/${idloaiphong}`);
+                    navigate(`/${path.SEARCH}`, {
+                      state: {
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        search: "",
+                        loaiphong: idloaiphong,
+                      },
+                    });
                   }}
                 >
                   <span>Book now</span>

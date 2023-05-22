@@ -35,8 +35,6 @@ import path from "../../utils/path";
 
 import StripeCheckout from "react-stripe-checkout";
 
-import moment from "moment";
-
 // const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const phoneRegExp =
@@ -341,9 +339,9 @@ const Booking = () => {
                     </li>
                     <li className="relative border-b border-solid border-slate-100 py-3">
                       <p className="ml-3 w-2/3 text-left">
-                        Không bao gồm: Phí dịch vụ
+                        Không bao gồm: Phí dịch vụ phát sinh
                       </p>{" "}
-                      <span className="absolute top-3 right-1">18$</span>
+                      <span className="absolute top-3 right-1">0$</span>
                     </li>
                     <li className="relative border-b border-solid border-slate-100 py-3">
                       <p className="ml-3 w-2/3 text-left">
@@ -353,13 +351,12 @@ const Booking = () => {
                         data?.TotalDay * data?.GiaPhong * 0.1
                       } $`}</span>
                     </li>
-                    <li className="relative border-b border-solid border-slate-100 py-3 bg-slate-100">
+                    <li className="relative border-b border-solid border-slate-100 py-3 bg-slate-100 h-18 ">
                       <p className="ml-3 w-2/3 text-left">
-                        Các loại thuế không bao gồm cần được thanh toán cho
-                        khách sạn. Tổng số tiền là:
+                        Tổng số tiền khi trả phòng cần thanh toán là:
                       </p>
-                      <span className="absolute top-3 right-1">{`${
-                        (data?.TotalDay * data?.GiaPhong * 11) / 10 + 18
+                      <span className="absolute top-3 right-1 text-4xl">{`${
+                        (data?.TotalDay * data?.GiaPhong * 11) / 10
                       } $`}</span>
                     </li>
                   </ul>

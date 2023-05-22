@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 
 import logo from "../../assets/img/logo.png";
 import "../../styles/header.css";
+import path from "../../utils/path";
 
 const Header = () => {
   const [backColor, setBackColor] = useState("bg-transparent");
 
-  const isLoggedIn = JSON.parse(localStorage.getItem("persist:app/user"));
+  const isLoggedIn = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:app/user")).current
+  );
+
+  const Logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("persist:app/user");
+    window.location.href = "/login";
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,15 +131,44 @@ const Header = () => {
             <li>
               <Link to="/contact">CONTACT</Link>
             </li> */}
-            {isLoggedIn?.isLoggedIn !== "true" && (
+            {isLoggedIn?.HoVaTen ? (
+              // <li>{isLoggedIn.HoVaTen}</li>
+
+              <li className="sub-nav">
+                <Link to={`/${path.PROFILE}`}>
+                  {isLoggedIn.HoVaTen}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-4 inline-block"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                </Link>
+                <ul>
+                  <li>
+                    {" "}
+                    <Link to="/"> Đơn đặt của tôi </Link>
+                  </li>
+                  <li>
+                    {" "}
+                    <Link to="#" onClick={(e) => Logout(e)}>
+                      {" "}
+                      Log out{" "}
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            ) : (
               <li>
                 <Link to="/login">LOGIN</Link>
-              </li>
-            )}
-
-            {isLoggedIn?.isLoggedIn === "true" && (
-              <li>
-                <Link to="/login">Logged in</Link>
               </li>
             )}
           </ul>

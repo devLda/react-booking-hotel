@@ -15,6 +15,11 @@ export const userSlice = createSlice({
       state.current = action.payload.userData;
       state.token = action.payload.token;
     },
+    login: (state, action) => {
+      // console.log(action)
+      state.isLoggedIn = action.payload.isLoggedIn;
+      state.current = action.payload.userData;
+    },
   },
 
   //   // Code logic xử lý async action
@@ -36,6 +41,6 @@ export const userSlice = createSlice({
 });
 
 // // Action creators are generated for each case reducer function
-export const { register } = userSlice.actions;
+export const { register, login } = userSlice.actions;
 
 export default userSlice.reducer;

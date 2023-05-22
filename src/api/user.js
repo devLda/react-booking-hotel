@@ -2,7 +2,7 @@ import axios from "../axios";
 
 export const apiRegister = (data) =>
   axios({
-    url: "/user/register",
+    url: "/account/register",
     method: "post",
     data,
     withCredentials: true,
@@ -10,21 +10,27 @@ export const apiRegister = (data) =>
 
 export const apiLogin = (data) =>
   axios({
-    url: "/user/login",
+    url: "/account/login",
     method: "post",
     data,
   });
 
 export const apiForgotPassword = (data) =>
   axios({
-    url: "/user/forgotpassword",
+    url: "/account/forgotpassword",
     method: "post",
     data,
   });
 
 export const apiResetPassword = (data) =>
   axios({
-    url: "/user/resetpassword",
+    url: "/account/resetpassword",
     method: "put",
     data,
+  });
+
+export const apiGetBooking = (Email) =>
+  axios({
+    url: `/thongtinkh/getbooking/${Email}`,
+    method: "get",
   });

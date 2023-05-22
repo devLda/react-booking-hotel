@@ -14,8 +14,8 @@ const commonConfig = {
 
 const userConfig = {
   ...commonConfig,
-  key: "app/login",
-  whitelist: ["isLoggedIn", "token"],
+  key: "app/user",
+  whitelist: ["isLoggedIn", "current"],
 };
 
 export const store = configureStore({
