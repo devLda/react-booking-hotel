@@ -55,20 +55,22 @@ export default function Profile() {
     JSON.parse(localStorage.getItem("persist:app/user")).current
   );
 
-  useEffect(async () => {
-    if (!user) {
-      window.location.href = "/login";
-    }
-
-    const response = await apiGetBooking(user?.Email);
-    if (response.success) {
-      if (response.mes) {
-        setBooking({ mes: response.mes });
+  useEffect(() => {
+    (async () => {
+      if (!user) {
+        window.location.href = "/login";
       }
-      if (response.data) {
-        setBooking(response.data);
-      }
-    } else Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
+  
+      const response = await apiGetBooking(user?.Email);
+      if (response.success) {
+        if (response.mes) {
+          setBooking({ mes: response.mes });
+        }
+        if (response.data) {
+          setBooking(response.data);
+        }
+      } else Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
+    })()
   }, []);
 
   return (

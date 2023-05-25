@@ -20,7 +20,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 // import AwesomeSlider from "react-awesome-slider";
 // import withAutoplay from "react-awesome-slider/dist/autoplay";
-import "react-awesome-slider/dist/styles.css";
+// import "react-awesome-slider/dist/styles.css";
 
 import LogoBreakfast from "../../assets/img/booking/icon-package-mealplan-breakfast.png";
 import LogoCheck from "../../assets/img/booking/icon-package-salesterms-check.png";
