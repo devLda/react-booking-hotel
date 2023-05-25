@@ -14,9 +14,9 @@ module.exports = {
         2: "2",
       },
       boxShadow: {
-        '3xl': '0px 5px 15px rgba(0, 0, 0, 0.35)',
+        "3xl": "0px 5px 15px rgba(0, 0, 0, 0.35)",
       },
     },
-  }, 
+  },
   plugins: [],
 };
