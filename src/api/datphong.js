@@ -7,3 +7,10 @@ export const apiPostDP = (data) =>
     data,
     withCredentials: true,
   });
+
+  export const apiCancelDP = (data) =>
+  axios({
+    url: "/datphong/cancel",
+    method: "put",
+    data
+  }) 

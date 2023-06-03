@@ -3,6 +3,8 @@ const path = {
   URL: "http://localhost:3200",
   PUBLIC: "",
   HOME: "home",
+  ABOUT: "about",
+  CONTACT: "contact",
   SEARCH: "search",
   DETAIL_ROOM: "detail-room",
   BOOKING: "booking",

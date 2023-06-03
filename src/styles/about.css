@@ -1,0 +1,44 @@
+.facilties .flex.px-4:first-child,
+.facilties .flex.px-4:nth-child(4)
+{
+    margin-left: -16px;
+}
+
+.facilties .single-facility {
+    background: transparent;
+    padding: 30px 20px;
+    -webkit-transition: .5s;
+    transition: .5s;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30px;
+    line-height: 1;
+    border: 1px solid #f1eeeb;
+}
+
+.facilties .single-facility h5 {
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.facilties .single-facility:hover h5 {
+  color: #222;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.facilties .single-facility i {
+  font-size: 45px;
+  color: #aa8453;
+  line-height: 1;
+  margin-bottom: 20px;
+  display: inline-block;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.facilties .single-facility p {
+    margin: 0;
+    color: #666;
+}

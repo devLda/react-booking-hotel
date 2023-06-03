@@ -69,6 +69,10 @@ const Booking = () => {
   // setData(dataBook);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setData(dataBook);
   }, []);
 
@@ -91,6 +95,10 @@ const Booking = () => {
   const [error, setError] = useState({});
 
   const [dataDP, setDataDP] = useState({});
+
+  const user = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:app/user")).current
+  );
 
   const getValueInput = () => {
     const allInput = document.querySelectorAll("input");
@@ -155,6 +163,9 @@ const Booking = () => {
 
   if (!dataBook) {
     Swal.fire("Thông tin", "Chưa chọn phòng", "info").then(() => {
+      if(user){
+      navigate(`/${path.PROFILE}`);
+      }
       navigate(`/${path.HOME}`);
     });
   }
@@ -176,7 +187,7 @@ const Booking = () => {
         Vui lòng kiểm tra email để xem chi tiết hóa đơn`,
         "success"
       ).then(() => {
-        navigate(`/${path.HOME}`);
+        navigate(`/${path.PROFILE}`);
       });
     } else Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
   };
@@ -431,7 +442,7 @@ const Booking = () => {
                   error={error.TenKH}
                   name="TenKH"
                   label="Tên khách hàng: "
-                  value={""}
+                  value={user?.HoVaTen ? user.HoVaTen : ""}
                 />
               </Grid>
               <Grid item md={6}>
@@ -439,7 +450,7 @@ const Booking = () => {
                   error={error.SDT}
                   name="SDT"
                   label="Số điện thoại: "
-                  value={""}
+                  value={user?.SDT ? user.SDT : ""}
                 />
               </Grid>
               <Grid item md={6}>
@@ -447,7 +458,7 @@ const Booking = () => {
                   error={error.Email}
                   name="Email"
                   label="Email: "
-                  value={""}
+                  value={user?.Email ? user.Email : ""}
                 />
               </Grid>
             </Grid>

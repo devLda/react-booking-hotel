@@ -73,10 +73,7 @@ const ItemBooking = ({ phong, infoPhong }) => {
             <button className="p-3" onClick={handleOpen}>
               Xem chi tiết
             </button>
-          </div>
-          {/* <div className="bg-yellow-800 text-white inline-block ">
-            <button className="p-3">Xem chi tiết</button>
-          </div> */}
+          </div> 
         </div>
       </div>
 
@@ -93,14 +90,19 @@ const ItemBooking = ({ phong, infoPhong }) => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 800,
+            height:  600,
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
+            overflowY: "scroll"
           }}
         >
+          <Typography id="modal-modal-description" sx={{ fontSize: 20, fontWeight: 700, textTransform: "uppercase" }}>
+            Thông tin chi tiết
+          </Typography>
           <Typography id="modal-modal-title" variant="h3" component="h2">
-          {phong?.LoaiPhong.TenLoaiPhong}
+           {phong?.LoaiPhong.TenLoaiPhong}
           </Typography>
           <AutoplaySlider
             className="client-wrapper h-full w-full mt-3"
@@ -119,9 +121,41 @@ const ItemBooking = ({ phong, infoPhong }) => {
               </div>
             ))}
           </AutoplaySlider>
-          <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          
+          <Typography sx={{marginTop: 5}}>
+            Số phòng: <b>{phong?.MaPhong}</b>
           </Typography>
+          <Typography>
+            Tầng: <b>{phong?.Tang}</b>
+          </Typography>
+          <Typography>
+              Diện tích: <b>{phong?.DienTich} m&#178;</b>
+          </Typography>
+          <Typography>
+              Số người tối đa: <b>{phong?.SoNguoi} người</b>
+          </Typography>
+          <Typography>
+            Giá phòng: <b>{phong?.GiaPhong} $/1 ngày</b>
+          </Typography>
+
+          <Typography sx={{my: 4}}>
+            Khách sạn AnhOct Luxury nằm giữa trung tâm kinh tế và văn hóa của Thành Phố Hà Nội, Khách sạn AnhOct Luxury mong muốn là cánh cửa đầu tiên ở Hà Nội chào đón Quý khách trong nước và Quốc tế về với Hà Nội
+          </Typography>
+
+          <Typography>
+            Loại phòng {phong?.LoaiPhong.TenLoaiPhong} có rất nhiều tiện nghi như:
+          </Typography>
+          <ul>
+            {
+              phong?.LoaiPhong?.TienNghi.map((item, index) => <li key={index}>
+               - {item}
+              </li>)
+            }
+          </ul>
+
+          <div className="bg-yellow-800 my-3 text-white inline-block ">
+            <button className="p-3" onClick={handleClick}>Đặt phòng ngay</button>
+          </div>
         </Box>
       </Modal>
     </div>

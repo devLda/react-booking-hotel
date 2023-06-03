@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Paralax from "../../components/UI/paralax";
@@ -17,6 +17,10 @@ const DetailRoom = () => {
 
   const Loai = useRef();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (status === "pending") {
     return <LoadingData />;
   } else {
@@ -24,6 +28,7 @@ const DetailRoom = () => {
       if (idloaiphong === element._id) Loai.current = element;
     });
   }
+
 
   // console.log(Loai.current);
 

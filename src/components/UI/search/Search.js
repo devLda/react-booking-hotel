@@ -26,6 +26,8 @@ const Search = (props) => {
 
   const [select, setSelect] = useState(iniSelect || null);
 
+  console.log(iniSelect)
+
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -111,7 +113,7 @@ const Search = (props) => {
             <select
               ref={optionRef}
               name="LoaiPhong"
-              value={select}
+              value={select ? select : "All"}
               onChange={(e) => setSelect(e.target.value)}
             >
               {options &&

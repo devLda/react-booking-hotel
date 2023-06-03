@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 import "../../styles/header.css";
 import path from "../../utils/path";
+import { useSelector } from "react-redux";
+import { LoadingData } from "../UI/loading";
 
 const Header = () => {
+  const { statusLP, loaiphong } = useSelector((state) => state.loaiphong);
+
   const [backColor, setBackColor] = useState("bg-transparent");
 
   const isLoggedIn = JSON.parse(
@@ -33,6 +37,10 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (statusLP === "pending" || loaiphong.length === 0) {
+    return <LoadingData />;
+  }
 
   return (
     <header
@@ -75,18 +83,12 @@ const Header = () => {
                 </svg>
               </Link>
               <ul>
-                <li>
-                  {" "}
-                  <Link to="/"> Deluxe Room </Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link to="/"> Premium Room </Link>
-                </li>
-                <li>
-                  {" "}
-                  <Link to="/"> Premium Deluxe Room </Link>
-                </li>
+                {loaiphong?.map((item, index) => 
+                  <li key={index}>
+                    {" "}
+                    <Link to={`/${path.DETAIL_ROOM}/${item._id}`}> {item.TenLoaiPhong} </Link>
+                  </li>
+                )}
               </ul>
             </li>
             <li className="sub-nav">
@@ -127,10 +129,10 @@ const Header = () => {
             </li>
             <li>
               <Link to="/news">NEWS</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/contact">CONTACT</Link>
-            </li> */}
+            </li>
             {isLoggedIn?.HoVaTen ? (
               // <li>{isLoggedIn.HoVaTen}</li>
 
@@ -155,7 +157,7 @@ const Header = () => {
                 <ul>
                   <li>
                     {" "}
-                    <Link to="/"> Đơn đặt của tôi </Link>
+                    <Link to={`/${path.PROFILE}`}> Đơn đặt của tôi </Link>
                   </li>
                   <li>
                     {" "}

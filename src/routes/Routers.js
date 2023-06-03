@@ -19,6 +19,8 @@ import DetailRoom from "../pages/public/DetailRoom";
 import path from "../utils/path";
 import SearchPage from "../pages/public/SearchPage";
 import Profile from "../pages/private/Profile";
+import About from "../pages/public/About";
+import Contact from "../pages/public/Contact";
 
 const Routers = () => {
   const routes = useRoutes([
@@ -46,6 +48,14 @@ const Routers = () => {
         {
           path: `${path.PROFILE}`,
           element: <Profile />,
+        },
+        {
+          path: `${path.ABOUT}`,
+          element: <About />,
+        },
+        {
+          path: `${path.CONTACT}`,
+          element: <Contact />,
         },
       ],
     },

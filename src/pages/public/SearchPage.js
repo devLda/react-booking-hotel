@@ -28,6 +28,10 @@ const SearchPage = () => {
     endDate: moment(location.state.endDate).format("DD/MM/YYYY"),
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const filterRoom = (start, end, searchKey, loaiphong, phongs) => {
     let tempRoom = [];
     if (start && end) {

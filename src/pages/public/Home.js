@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
+import { useEffect } from "react";
 
 import SliderHome from "../../components/UI/slider/SliderHome";
 import RoomItem from "../../components/UI/room_item/RoomItem";
@@ -10,43 +11,34 @@ import sliders from "../../assets/fake-data/slider.js";
 import { LoadingData } from "../../components/UI/loading";
 import "../../styles/home.css";
 import Brand from "../../components/UI/brand/Brand";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Search from "../../components/UI/search/Search";
-import { apiGetAllLoaiPhong } from "../../store/loaiphong/asyncAction";
+import { Introduce } from "../../components/UI/about";
 
 const Home = () => {
   // const {rooms} = useSelector(state => state.app)
   // const {isLoggedIn, current} = useSelector(state => state.user)
-  const { status } = useSelector((state) => state.loaiphong);
-
-  const [LoaiPhong, setLoaiPhong] = useState([]);
-
-  const dispatch = useDispatch();
+  const { statusLP, loaiphong } = useSelector((state) => state.loaiphong);
 
   useEffect(() => {
-    console.log("cookie ", document.cookie);
+    window.scrollTo(0, 0);
+  }, []);
 
-    dispatch(apiGetAllLoaiPhong()).then((res) => {
-      // console.log(res)
-      if (res.meta.requestStatus === "fulfilled") {
-        setLoaiPhong(res.payload);
-      }
-    });
-  }, [dispatch]);
-
-  if (status === "pending" || LoaiPhong.length === 0) {
+  if (statusLP === "pending" || loaiphong.length === 0) {
     return <LoadingData />;
   }
 
-  const LPSelect = LoaiPhong.map((item) => {
+  const LPSelect = loaiphong.map((item) => {
     return {
       id: item._id,
       title: item.TenLoaiPhong,
     };
   });
+  LPSelect.unshift({ id: "All", title: "All" });
 
-  const room = LoaiPhong.slice(0, 3);
-  const suite = LoaiPhong.slice(3, 5);
+
+  const room = loaiphong?.slice(0, 3);
+  const suite = loaiphong?.slice(3, 5);
 
   return (
     <>
@@ -54,58 +46,12 @@ const Home = () => {
 
       <Search options={LPSelect} />
 
-      <section class="about section-padding">
-        <div class="container flex">
-          <div class="mb-7 px-3 w-6/12">
-            <span>
-              <i class="star-rating"></i>
-              <i class="star-rating"></i>
-              <i class="star-rating"></i>
-              <i class="star-rating"></i>
-              <i class="star-rating"></i>
-            </span>
-            <div class="section-subtitle">Anh Oct Hotel</div>
-            <div class="section-title">Enjoy a Luxury Experience</div>
-            <p>
-              Welcome to the best five-star deluxe hotel in New York. Hotel
-              elementum sesue the aucan vestibulum aliquam justo in sapien
-              rutrum volutpat. Donec in quis the pellentesque velit. Donec id
-              velit ac arcu posuere blane.
-            </p>
-            <p>
-              Hotel ut nisl quam nestibulum ac quam nec odio elementum sceisue
-              the aucan ligula. Orci varius natoque penatibus et magnis dis
-              parturient monte nascete ridiculus mus nellentesque habitant
-              morbine.
-            </p>
-            <div className="reservation">
-              <div className="icon">
-                <i className="ri-phone-fill"></i>
-              </div>
-              <div className="call ml-3">
-                <p>Reservation</p>
-                <br />
-                <span>855 100 4444</span>
-              </div>
-            </div>
-          </div>
-          <div class="px-3 w-3/12">
-            <img
-              src={LoaiPhong ? LoaiPhong[0].images[0] : ""}
-              alt="room 8"
-              class="mt-20 mb-7"
-            />
-          </div>
-          <div class="px-3 w-3/12">
-            <img src={LoaiPhong ? LoaiPhong[1].images[0] : ""} alt="room 2" />
-          </div>
-        </div>
-      </section>
+      <Introduce />
 
       <section className="room-item">
         <div className="container section-padding">
           <div class="w-full">
-            <div class="section-subtitle">The Cappa Luxury Hotel</div>
+            <div class="section-subtitle">Anh Oct Luxury Hotel</div>
             <div class="section-title">Rooms &amp; Suites</div>
           </div>
 

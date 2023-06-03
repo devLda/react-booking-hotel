@@ -1,0 +1,32 @@
+.about p {
+  margin-bottom: 20px;
+  padding-right: 40px;
+  font-family: "Barlow", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75em;
+  color: #666;
+  opacity: 0.8;
+}
+
+.about .reservation {
+  display: flex;
+  align-items: center;
+}
+
+.about .reservation .icon {
+  position: relative;
+  top: 4px;
+}
+
+.about .reservation i {
+  font-size: 60px;
+  color: #8e6d45;
+  transform: rotate(0);
+}
+
+.about .reservation p {
+  display: inline;
+  line-height: 0;
+  margin-bottom: 0;
+}
