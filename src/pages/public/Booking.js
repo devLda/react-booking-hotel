@@ -468,7 +468,7 @@ const Booking = () => {
                 my: 2,
                 mx: 2,
               }}
-              text={"Book now"}
+              text={"Đặt phòng ngay"}
               onClick={(e) => {
                 handleSubmit();
               }}
