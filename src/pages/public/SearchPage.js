@@ -28,10 +28,6 @@ const SearchPage = () => {
     endDate: moment(location.state.endDate).format("DD/MM/YYYY"),
   });
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const filterRoom = (start, end, searchKey, loaiphong, phongs) => {
     let tempRoom = [];
     if (start && end) {
@@ -112,7 +108,7 @@ const SearchPage = () => {
     return <LoadingData />;
   }
 
-  if (isLoading || loaiphong?.length === 0) {
+  if (isLoading || loaiphong || loaiphong?.length === 0) {
     return <LoadingData />;
   }
 
@@ -122,6 +118,7 @@ const SearchPage = () => {
       title: item.TenLoaiPhong,
     };
   });
+  console.log(loaiphong);
   LPSelect.unshift({ id: "All", title: "All" });
 
   // console.log("info phong ", infoPhong);
