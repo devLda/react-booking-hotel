@@ -105,10 +105,12 @@ const SearchPage = () => {
   }, [query]);
 
   if (isLoading || Phong.length === 0) {
+    console.log(isLoading);
+    console.log(Phong);
     return <LoadingData />;
   }
 
-  if (isLoading || loaiphong || loaiphong?.length === 0) {
+  if (!loaiphong || loaiphong?.length === 0) {
     return <LoadingData />;
   }
 
@@ -118,7 +120,6 @@ const SearchPage = () => {
       title: item.TenLoaiPhong,
     };
   });
-  console.log(loaiphong);
   LPSelect.unshift({ id: "All", title: "All" });
 
   // console.log("info phong ", infoPhong);
