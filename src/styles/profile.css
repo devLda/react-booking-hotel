@@ -1,0 +1,25 @@
+
+.MuiBox-root table,.MuiBox-root tr,.MuiBox-root th,.MuiBox-root td{
+    border: 1px solid;
+}
+
+.MuiBox-root table {
+    margin: 20px 0;
+}
+
+.MuiBox-root th,.MuiBox-root td{
+    width: 200px;
+    height: 40px;
+    /* padding-left: 12px; */
+    text-align: center;
+}
+
+.MuiBox-root th:first-child,.MuiBox-root td:first-child{
+    width: 40px;
+}
+
+.MuiBox-root input{
+    border: 1px solid #ccc;
+    width: 50%;
+    text-align: center;
+}

@@ -6,6 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -14,11 +15,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import Paralax from "../../components/UI/paralax";
-import { apiGetBooking } from "../../api";
+import { apiAllDV, apiGetBooking, apiUpdateHD } from "../../api";
 import Swal from "sweetalert2";
 
 import { apiCancelDP } from "../../api";
 import { Button } from "../../components/UI/form";
+import moment from "moment";
+import "../../styles/profile.css";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,7 +49,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
+function allProps(index) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
@@ -58,7 +61,17 @@ export default function Profile() {
 
   const [booking, setBooking] = useState([]);
 
+  const [currentBook, setCurrentBook] = useState([]);
+
+  const [dichVu, setDichVu] = useState([]);
+
+  const [idHD, setIdHD] = useState([]);
+
   const [openDialog, setOpenDialog] = useState(null);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const user = JSON.parse(
     JSON.parse(localStorage.getItem("persist:app/user")).current
@@ -81,6 +94,75 @@ export default function Profile() {
     } else Swal("Thất bại", "Đã xảy ra lỗi", "error");
   };
 
+  const filterCurrent = (phongs) => {
+    const tempRoom = [];
+    let current = false;
+
+    const now = new Date("2023-06-08");
+    const year = now.getFullYear() + "";
+    const month =
+      now.getMonth() < 10
+        ? "0" + (now.getMonth() + 1)
+        : "" + (now.getMonth() + 1);
+    const date = now.getDate() < 10 ? "0" + now.getDate() : "" + now.getDate();
+    const today = `${date}-${month}-${year}`;
+
+    for (const item of phongs) {
+      if (
+        moment(today, "DD-MM-YYYY").isBetween(
+          moment(item?.DatPhong.NgayBatDau, "DD-MM-YYYY"),
+          moment(item?.DatPhong.NgayKetThuc, "DD-MM-YYYY")
+        )
+      ) {
+        console.log("zo");
+        current = true;
+      } else {
+        current = false;
+      }
+
+      if (current) {
+        tempRoom.push(item);
+      }
+    }
+
+    console.log("temp ", tempRoom);
+    setCurrentBook(tempRoom);
+  };
+
+  const ThemDichVu = () => {
+    const temp = [];
+    const checkbox = document.querySelectorAll(
+      ".tblThemDV tr input[type='checkbox']"
+    );
+    const soluong = document.querySelectorAll(
+      ".tblThemDV tr input[type='number']"
+    );
+    for (let i = 0; i < checkbox.length; i++) {
+      if (checkbox[i].id === soluong[i].id && checkbox[i].checked) {
+        temp.push({
+          MaDichVu: checkbox[i].value,
+          SoLuong: soluong[i].value ? parseFloat(soluong[i].value) : 1,
+        });
+      }
+    }
+    
+    apiUpdateHD(idHD, temp)
+        .then((res) => {
+          console.log("res ", res);
+          setOpen(false);
+            Swal.fire("Thành công", "Thêm dịch vụ thành công", "success").then(
+              () => {
+                window.location.reload();
+              }
+            );
+        })
+        .catch((err) => {
+          console.log("err ", err);
+          setOpen(false);
+          Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
+        });
+  };
+
   useEffect(() => {
     (async () => {
       if (!user) {
@@ -92,10 +174,16 @@ export default function Profile() {
       if (response.success) {
         if (response.data) {
           setBooking(response.data);
+          filterCurrent(response.data);
         }
       } else Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
 
-      console.log(booking);
+      const resDichVu = await apiAllDV();
+      console.log("dv ", resDichVu);
+      if (resDichVu.success) {
+        setDichVu(resDichVu.data);
+      }
+      // console.log(booking);
     })();
   }, []);
 
@@ -111,8 +199,9 @@ export default function Profile() {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="My Profile" {...a11yProps(0)} />
-              <Tab label="Đơn đặt phòng" {...a11yProps(1)} />
+              <Tab label="My Profile" {...allProps(0)} />
+              <Tab label="Đơn đặt phòng" {...allProps(1)} />
+              <Tab label="Phòng đang đặt" {...allProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -252,8 +341,119 @@ export default function Profile() {
               <h1>Không có đơn đặt phòng nào</h1>
             )}
           </TabPanel>
+          <TabPanel value={value} index={2}>
+            {currentBook?.length > 0 ? (
+              currentBook.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex w-2/3 mb-10 p-4 justify-start shadow-3xl rounded-md"
+                  >
+                    <div className="w-full ml-7 font-Montserrat relative">
+                      <p className="mb-2 text-base">
+                        {" "}
+                        <b>Số phòng:</b> {item.MaPhong}
+                      </p>
+                      <p className="mb-2 text-base">
+                        {" "}
+                        <b>Ngày nhận phòng:</b> {item?.DatPhong?.NgayBatDau}
+                      </p>
+                      <p className="mb-2 text-base">
+                        {" "}
+                        <b>Ngày trả phòng:</b> {item?.DatPhong?.NgayKetThuc}
+                      </p>
+                      <p className="mb-2 text-base">
+                        {" "}
+                        <b>Số ngày đặt:</b> {item?.DatPhong?.TongNgay} ngày
+                      </p>
+                      <p className="mb-2 text-base">
+                        {" "}
+                        <b>Tổng tiền:</b> {item?.TongTien} $
+                      </p>
+
+                      <div className="absolute bottom-0 right-0">
+                        <button
+                          className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
+                          onClick={() => {
+                            handleOpen();
+                            setIdHD(item?._id);
+                          }}
+                        >
+                          Thêm dịch vụ
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <h1>Không có phòng nào hiện đang sử dụng</h1>
+            )}
+          </TabPanel>
         </Box>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography
+            id="modal-modal-description"
+            sx={{
+              marginBottom: 5,
+              fontSize: 20,
+              fontWeight: 700,
+              textTransform: "uppercase",
+            }}
+          >
+            Chọn dịch vụ
+          </Typography>
+          <table className="tblThemDV">
+            <tr>
+              <th></th>
+              <th>Tên dịch vụ</th>
+              <th>Giá dịch vụ</th>
+              <th>Số lượng</th>
+            </tr>
+            {dichVu?.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <input
+                    id={item?.MaDichVu}
+                    type="checkbox"
+                    value={item?.MaDichVu}
+                  />
+                </td>
+                <td>{item?.TenDichVu}</td>
+                <td>{item?.GiaDichVu} $</td>
+                <td>
+                  <input id={item?.MaDichVu} type="number" min={1} max={5} />
+                </td>
+              </tr>
+            ))}
+          </table>
+
+          <div className="bg-yellow-600 hover:bg-yellow-700 my-3 text-white inline-block ">
+            <button className="p-3" onClick={ThemDichVu}>
+              Thêm dịch vụ
+            </button>
+          </div>
+        </Box>
+      </Modal>
     </>
   );
 }

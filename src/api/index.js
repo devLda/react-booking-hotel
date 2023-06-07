@@ -11,3 +11,11 @@ export {
   apiPostDP,
   apiCancelDP
 } from "./datphong"
+
+export {
+  apiAllDV
+} from "./dichvu"
+
+export {
+  apiUpdateHD
+} from "./hoadon"
