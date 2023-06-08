@@ -131,21 +131,23 @@ export default function Profile() {
 
   const ThemDichVu = () => {
     const temp = [];
-    const checkbox = document.querySelectorAll(
-      ".tblThemDV tr input[type='checkbox']"
-    );
-    const soluong = document.querySelectorAll(
-      ".tblThemDV tr input[type='number']"
-    );
-    for (let i = 0; i < checkbox.length; i++) {
-      if (checkbox[i].id === soluong[i].id && checkbox[i].checked) {
+
+    const tr = document.querySelectorAll(".tblThemDV tr");
+
+    tr.forEach((item, index) => {
+
+      if (item.childNodes[0].childNodes[0]?.checked) {
         temp.push({
-          MaDichVu: checkbox[i].value,
-          SoLuong: soluong[i].value ? parseFloat(soluong[i].value) : 1,
+          MaDichVu: item.childNodes[0].childNodes[0]?.value,
+          TenDichVu: item.childNodes[1].innerText,
+          GiaDichVu: parseFloat(item.childNodes[2].innerText.replace("$", "")),
+          SoLuong: item.childNodes[3].childNodes[0]?.value
+            ? parseFloat(item.childNodes[3].childNodes[0]?.value)
+            : 1,
         });
       }
-    }
-    
+    });
+
     apiUpdateHD(idHD, temp)
         .then((res) => {
           console.log("res ", res);
@@ -368,6 +370,12 @@ export default function Profile() {
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
+                        <b>Dịch vụ phát sinh:</b> 
+                        { item?.DichVu?.length > 0 && item?.DichVu?.map((ele, i) => <p key={i}> - {ele?.SoLuong} x {ele?.TenDichVu}</p>)}
+                        { item?.DichVu?.length === 0 && <span>Không có dịch vụ phát sinh</span> }
+                      </p>
+                      <p className="mb-2 text-base">
+                        {" "}
                         <b>Tổng tiền:</b> {item?.TongTien} $
                       </p>
 
@@ -433,7 +441,6 @@ export default function Profile() {
               <tr key={index}>
                 <td>
                   <input
-                    id={item?.MaDichVu}
                     type="checkbox"
                     value={item?.MaDichVu}
                   />
@@ -441,7 +448,7 @@ export default function Profile() {
                 <td>{item?.TenDichVu}</td>
                 <td>{item?.GiaDichVu} $</td>
                 <td>
-                  <input id={item?.MaDichVu} type="number" min={1} max={5} />
+                  <input type="number" min={1} max={5} />
                 </td>
               </tr>
             ))}
