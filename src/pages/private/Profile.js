@@ -98,7 +98,7 @@ export default function Profile() {
     const tempRoom = [];
     let current = false;
 
-    const now = new Date("2023-06-08");
+    const now = new Date();
     const year = now.getFullYear() + "";
     const month =
       now.getMonth() < 10
@@ -114,7 +114,11 @@ export default function Profile() {
           moment(item?.DatPhong.NgayKetThuc, "DD-MM-YYYY")
         )
       ) {
-        console.log("zo");
+        current = true;
+      } else if (
+        today === item?.DatPhong.NgayBatDau ||
+        today === item?.DatPhong.NgayKetThuc
+      ) {
         current = true;
       } else {
         current = false;
@@ -135,7 +139,6 @@ export default function Profile() {
     const tr = document.querySelectorAll(".tblThemDV tr");
 
     tr.forEach((item, index) => {
-
       if (item.childNodes[0].childNodes[0]?.checked) {
         temp.push({
           MaDichVu: item.childNodes[0].childNodes[0]?.value,
@@ -149,20 +152,20 @@ export default function Profile() {
     });
 
     apiUpdateHD(idHD, temp)
-        .then((res) => {
-          console.log("res ", res);
-          setOpen(false);
-            Swal.fire("Thành công", "Thêm dịch vụ thành công", "success").then(
-              () => {
-                window.location.reload();
-              }
-            );
-        })
-        .catch((err) => {
-          console.log("err ", err);
-          setOpen(false);
-          Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
-        });
+      .then((res) => {
+        console.log("res ", res);
+        setOpen(false);
+        Swal.fire("Thành công", "Thêm dịch vụ thành công", "success").then(
+          () => {
+            window.location.reload();
+          }
+        );
+      })
+      .catch((err) => {
+        console.log("err ", err);
+        setOpen(false);
+        Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
+      });
   };
 
   useEffect(() => {
@@ -370,9 +373,17 @@ export default function Profile() {
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
-                        <b>Dịch vụ phát sinh:</b> 
-                        { item?.DichVu?.length > 0 && item?.DichVu?.map((ele, i) => <p key={i}> - {ele?.SoLuong} x {ele?.TenDichVu}</p>)}
-                        { item?.DichVu?.length === 0 && <span>Không có dịch vụ phát sinh</span> }
+                        <b>Dịch vụ phát sinh:</b>
+                        {item?.DichVu?.length > 0 &&
+                          item?.DichVu?.map((ele, i) => (
+                            <p key={i}>
+                              {" "}
+                              - {ele?.SoLuong} x {ele?.TenDichVu}
+                            </p>
+                          ))}
+                        {item?.DichVu?.length === 0 && (
+                          <span>Không có dịch vụ phát sinh</span>
+                        )}
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
@@ -440,10 +451,7 @@ export default function Profile() {
             {dichVu?.map((item, index) => (
               <tr key={index}>
                 <td>
-                  <input
-                    type="checkbox"
-                    value={item?.MaDichVu}
-                  />
+                  <input type="checkbox" value={item?.MaDichVu} />
                 </td>
                 <td>{item?.TenDichVu}</td>
                 <td>{item?.GiaDichVu} $</td>

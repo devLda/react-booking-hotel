@@ -26,6 +26,8 @@ import LogoBreakfast from "../../assets/img/booking/icon-package-mealplan-breakf
 import LogoCheck from "../../assets/img/booking/icon-package-salesterms-check.png";
 import LogoPayment from "../../assets/img/booking/icon-package-salesterms-payment-checkout.png";
 
+import {LoadingData} from "../../components/UI/loading"
+
 import { object, string } from "yup";
 import { apiPostDP } from "../../api/datphong";
 
@@ -65,6 +67,8 @@ const Booking = () => {
   const [data, setData] = useState([]);
 
   const [openDialog, setOpenDialog] = useState(null);
+
+  const [loading, setLoading] = useState(false)
 
   // setData(dataBook);
 
@@ -178,22 +182,31 @@ const Booking = () => {
     data.token = token;
 
     console.log("token ", data);
+    
+    setLoading(true)
 
     const response = await apiPostDP(data);
     if (response.success) {
+      setLoading(false)
       Swal.fire(
         "Thành công",
         `Đơn đặt phòng của bạn đã thành công. 
         Vui lòng kiểm tra email để xem chi tiết hóa đơn`,
         "success"
       ).then(() => {
-        navigate(`/${path.PROFILE}`);
+        if(user){
+          navigate(`/${path.PROFILE}`);
+          }
+        navigate(`/${path.HOME}`);
       });
     } else Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
   };
 
   return (
     <div className="booking">
+      {
+        loading && <LoadingData />
+      }
       <Paralax title="ANH OCT LUXURY HOTEL" content="Reservation" />
       <div className="container mt-8">
         <>
