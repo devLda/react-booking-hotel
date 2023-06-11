@@ -11,28 +11,30 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const Search = (props) => {
-  const { options, setData, iniSelect } = props;
+  const { options, setData, iniDate, iniSearch, iniSelect } = props;
   const dateRef = useRef();
   const optionRef = useRef();
-  const [SearchBox, setSearchBox] = useState("");
+  const [SearchBox, setSearchBox] = useState(iniSearch ? iniSearch : "");
   const [openDate, setOpenDate] = useState(false);
   const [dates, setDates] = useState([
     {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: iniDate ? new Date(iniDate.startDate) : new Date(),
+      endDate: iniDate ? new Date(iniDate.endDate) : new Date(),
       key: "selection",
     },
   ]);
 
   const [select, setSelect] = useState(iniSelect || null);
 
-  console.log(iniSelect)
+  console.log(iniSelect);
 
   const navigate = useNavigate();
 
   const handleSearch = () => {
     // console.log(SearchBox);
-    if (window.location.href.split("/")[3] !== path.SEARCH)
+    if (window.location.href.split("/")[3] !== path.SEARCH) {
+      console.log("str ", dates[0].startDate);
+      console.log("str ", dates[0].startDate);
       navigate(`/${path.SEARCH}`, {
         state: {
           startDate: dates[0].startDate,
@@ -41,6 +43,7 @@ const Search = (props) => {
           loaiphong: optionRef.current.value,
         },
       });
+    }
   };
 
   useEffect(() => {
@@ -89,6 +92,7 @@ const Search = (props) => {
               <DateRange
                 editableDateInputs={true}
                 onChange={(item) => {
+                  console.log("change ", item.selection);
                   setDates([item.selection]);
                 }}
                 dateDisplayFormat="dd/MM/yyyy"

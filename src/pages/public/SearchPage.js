@@ -15,7 +15,7 @@ const SearchPage = () => {
   const { isLoading } = useSelector((state) => state.phong);
   const { loaiphong } = useSelector((state) => state.loaiphong);
   const location = useLocation();
-  // console.log("query ", location);
+  // console.log("queryLocation ", location);
 
   const [query, setQuery] = useState({});
 
@@ -31,36 +31,38 @@ const SearchPage = () => {
   const filterRoom = (start, end, searchKey, loaiphong, phongs) => {
     let tempRoom = [];
     if (start && end) {
-      let avail = false;
+      let tempDay = [];
       for (const item of phongs) {
+        let avail = false;
         if (item.LichDat.length > 0) {
           for (const booking of item.LichDat) {
             if (
-              !moment(start, "DD-MM-YYYY").isBetween(
-                moment(booking.NgayBatDau, "DD-MM-YYYY"),
-                moment(booking.NgayKetThuc, "DD-MM-YYYY")
-              ) &&
-              !moment(end, "DD-MM-YYYY").isBetween(
-                moment(booking.NgayBatDau, "DD-MM-YYYY"),
-                moment(booking.NgayKetThuc, "DD-MM-YYYY")
-              )
+              moment(booking.NgayBatDau, "DD-MM-YYYY").isBetween(
+                moment(start, "DD-MM-YYYY"),
+                moment(end, "DD-MM-YYYY")
+              ) ||
+              moment(booking.NgayKetThuc, "DD-MM-YYYY").isBetween(
+                moment(start, "DD-MM-YYYY"),
+                moment(end, "DD-MM-YYYY")
+              ) ||
+              start === booking.NgayBatDau ||
+              start === booking.NgayKetThuc ||
+              end === booking.NgayBatDau ||
+              end === booking.NgayKetThuc
             ) {
-              if (
-                start !== booking.NgayBatDau &&
-                start !== booking.NgayKetThuc &&
-                end !== booking.NgayBatDau &&
-                end !== booking.NgayKetThuc
-              ) {
-                avail = true;
-              }
+              console.log("bd ", booking.NgayBatDau);
+              console.log("kt ", booking.NgayKetThuc);
+              avail = true;
             }
           }
         }
-
         if (avail || item.LichDat.length === 0) {
-          tempRoom.push(item);
+          tempDay.push(item);
         }
       }
+      const temp = phongs.filter((phong) => !tempDay.includes(phong));
+      tempRoom = [...temp];
+      console.log("temp ", tempRoom);
     }
 
     if (searchKey !== "") {
@@ -93,6 +95,9 @@ const SearchPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (location) {
+      console.log("location ", location);
+    }
     if (Object.keys(query).length > 0) {
       const { search, loaiphong, ...dates } = query;
       console.log("query ", query);
@@ -102,11 +107,9 @@ const SearchPage = () => {
       // filterByType(loaiphong, roomFilter);
       setQuery({});
     }
-  }, [query]);
+  }, [query, location]);
 
   if (isLoading || Phong.length === 0) {
-    console.log(isLoading);
-    console.log(Phong);
     return <LoadingData />;
   }
 
@@ -130,7 +133,12 @@ const SearchPage = () => {
 
       <Search
         options={LPSelect}
+        iniDate={{
+          startDate: location.state?.startDate,
+          endDate: location.state?.endDate,
+        }}
         iniSelect={location.state.loaiphong}
+        iniSearch={location.state.search}
         setData={setQuery}
       />
 

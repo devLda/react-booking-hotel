@@ -275,9 +275,7 @@ export default function Profile() {
                       </p>
 
                       <div className="absolute bottom-0 right-0">
-                        {item?.DatPhong?.TrangThai === "Đã hủy" ? (
-                          <></>
-                        ) : (
+                        {item?.DatPhong?.TrangThai === "Đã đặt" ? (
                           <button
                             className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
                             onClick={() => {
@@ -286,6 +284,8 @@ export default function Profile() {
                           >
                             Hủy đơn đặt
                           </button>
+                        ) : (
+                          <></>
                         )}
                       </div>
                     </div>
