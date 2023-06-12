@@ -418,6 +418,34 @@ export default function Profile() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        <Box>
+          <div ref={dateRef} className="headerSearchItem">
+            {/* <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" /> */}
+            <i class="fa-solid fa-calendar-days text-slate-300"></i>
+            <span
+              onClick={() => setOpenDate(!openDate)}
+              className="headerSearchText"
+            >{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
+              dates[0].endDate,
+              "dd/MM/yyyy"
+            )}`}</span>
+            {openDate && (
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => {
+                  console.log("change ", item.selection);
+                  setDates([item.selection]);
+                }}
+                dateDisplayFormat="dd/MM/yyyy"
+                moveRangeOnFirstSelection={false}
+                ranges={dates}
+                className="date"
+                minDate={new Date()}
+                disabledDates={[new Date("2023/06/13"), new Date("2023/06/14")]}
+              />
+            )}
+          </div>
+        </Box>
         <Box
           sx={{
             position: "absolute",

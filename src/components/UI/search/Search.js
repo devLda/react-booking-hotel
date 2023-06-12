@@ -100,6 +100,7 @@ const Search = (props) => {
                 ranges={dates}
                 className="date"
                 minDate={new Date()}
+                disabledDates={[new Date("2023/06/13"), new Date("2023/06/14")]}
               />
             )}
           </div>
