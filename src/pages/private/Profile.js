@@ -184,6 +184,10 @@ export default function Profile() {
       });
   };
 
+  const handleChangDay = () => {
+    setOpenHD(true);
+  };
+
   useEffect(() => {
     (async () => {
       if (!user) {
@@ -310,7 +314,7 @@ export default function Profile() {
                           <button
                             className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
                             onClick={() => {
-                              console.log('doi phong')
+                              console.log("doi phong");
                             }}
                           >
                             Đổi phòng
@@ -400,6 +404,73 @@ export default function Profile() {
                         </DialogActions>
                       </Dialog>
                     )}
+
+                    <Modal
+                      open={openHD}
+                      onClose={() => {
+                        setOpenHD(false);
+                      }}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          width: "50vw",
+                          height: "50vh",
+                          transform: "translate(-50%, -50%)",
+                          bgcolor: "background.paper",
+                          border: "2px solid #000",
+                          boxShadow: 24,
+                          p: 4,
+                        }}
+                      >
+                        <Typography
+                          id="modal-modal-description"
+                          sx={{
+                            marginBottom: 5,
+                            fontSize: 20,
+                            fontWeight: 700,
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Chọn lịch đặt mới
+                        </Typography>
+                        <div ref={dateRef} className="flex items-center gap-3">
+                          <i class="fa-solid fa-calendar-days text-slate-300"></i>
+                          <span
+                            onClick={() => setOpenDate(!openDate)}
+                            className="text-slate-300 cursor-pointer text-lg"
+                          >{`${format(
+                            dates[0].startDate,
+                            "dd/MM/yyyy"
+                          )} to ${format(
+                            dates[0].endDate,
+                            "dd/MM/yyyy"
+                          )}`}</span>
+                          {openDate && (
+                            <DateRange
+                              editableDateInputs={true}
+                              onChange={(item) => {
+                                console.log("change ", item.selection);
+                                setDates([item.selection]);
+                              }}
+                              dateDisplayFormat="dd/MM/yyyy"
+                              moveRangeOnFirstSelection={false}
+                              ranges={dates}
+                              className="absolute"
+                              minDate={new Date()}
+                              disabledDates={[
+                                new Date("2023/06/13"),
+                                new Date("2023/06/14"),
+                              ]}
+                            />
+                          )}
+                        </div>
+                      </Box>
+                    </Modal>
                   </div>
                 );
               })
@@ -474,59 +545,9 @@ export default function Profile() {
       </div>
 
       <Modal
-        open={openHD}
-        onClose={() => {
-          setOpenHD(false)
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "50vw",
-            height: "50vh",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-        <div ref={dateRef} className="flex items-center gap-3">
-            <i class="fa-solid fa-calendar-days text-slate-300"></i>
-            <span
-              onClick={() => setOpenDate(!openDate)}
-              className="text-slate-300 cursor-pointer text-lg"
-            >{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
-              dates[0].endDate,
-              "dd/MM/yyyy"
-            )}`}</span>
-            {openDate && (
-              <DateRange
-                editableDateInputs={true}
-                onChange={(item) => {
-                  console.log("change ", item.selection);
-                  setDates([item.selection]);
-                }}
-                dateDisplayFormat="dd/MM/yyyy"
-                moveRangeOnFirstSelection={false}
-                ranges={dates}
-                className="absolute"
-                minDate={new Date()}
-                disabledDates={[new Date("2023/06/13"), new Date("2023/06/14")]}
-              />
-            )}
-          </div>
-        </Box>
-      </Modal>
-
-      <Modal
         open={openDV}
         onClose={() => {
-          setOpenDV(false)
+          setOpenDV(false);
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -582,7 +603,6 @@ export default function Profile() {
           </div>
         </Box>
       </Modal>
-      
     </>
   );
 }
