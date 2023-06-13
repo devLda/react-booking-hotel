@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
-import { DateRange } from "react-date-range";
 import { useRef, useState, useEffect } from "react";
+
+import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
@@ -100,7 +101,7 @@ const Search = (props) => {
                 ranges={dates}
                 className="date"
                 minDate={new Date()}
-                disabledDates={[new Date("2023/06/13"), new Date("2023/06/14")]}
+                
               />
             )}
           </div>

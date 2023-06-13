@@ -1,6 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect, useRef } from "react";
 
-import { useState, useEffect } from "react";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { format } from "date-fns";
+
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -57,6 +62,18 @@ function allProps(index) {
 }
 
 export default function Profile() {
+  const dateRef = useRef();
+
+  const [openDate, setOpenDate] = useState(false);
+
+  const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
   const [value, setValue] = useState(0);
 
   const [booking, setBooking] = useState([]);
@@ -69,9 +86,8 @@ export default function Profile() {
 
   const [openDialog, setOpenDialog] = useState(null);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openDV, setOpenDV] = useState(false);
+  const [openHD, setOpenHD] = useState(false);
 
   const user = JSON.parse(
     JSON.parse(localStorage.getItem("persist:app/user")).current
@@ -154,7 +170,7 @@ export default function Profile() {
     apiUpdateHD(idHD, temp)
       .then((res) => {
         console.log("res ", res);
-        setOpen(false);
+        setOpenDV(false);
         Swal.fire("Thành công", "Thêm dịch vụ thành công", "success").then(
           () => {
             window.location.reload();
@@ -163,7 +179,7 @@ export default function Profile() {
       })
       .catch((err) => {
         console.log("err ", err);
-        setOpen(false);
+        setOpenDV(false);
         Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
       });
   };
@@ -191,6 +207,21 @@ export default function Profile() {
       // console.log(booking);
     })();
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dateRef.current && !dateRef.current.contains(event.target)) {
+        setOpenDate(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dateRef, dates]);
 
   return (
     <>
@@ -273,6 +304,36 @@ export default function Profile() {
                         {" "}
                         <b>Trạng thái:</b> {item?.DatPhong?.TrangThai}
                       </p>
+
+                      <div className="absolute bottom-32 right-0">
+                        {item?.DatPhong?.TrangThai === "Đã đặt" ? (
+                          <button
+                            className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
+                            onClick={() => {
+                              console.log('doi phong')
+                            }}
+                          >
+                            Đổi phòng
+                          </button>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+
+                      <div className="absolute bottom-16 right-0">
+                        {item?.DatPhong?.TrangThai === "Đã đặt" ? (
+                          <button
+                            className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
+                            onClick={() => {
+                              setOpenHD(true);
+                            }}
+                          >
+                            Đổi lịch đặt
+                          </button>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
 
                       <div className="absolute bottom-0 right-0">
                         {item?.DatPhong?.TrangThai === "Đã đặt" ? (
@@ -394,7 +455,7 @@ export default function Profile() {
                         <button
                           className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
                           onClick={() => {
-                            handleOpen();
+                            setOpenDV(true);
                             setIdHD(item?._id);
                           }}
                         >
@@ -413,18 +474,32 @@ export default function Profile() {
       </div>
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openHD}
+        onClose={() => {
+          setOpenHD(false)
+        }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
-          <div ref={dateRef} className="headerSearchItem">
-            {/* <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" /> */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "50vw",
+            height: "50vh",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+        <div ref={dateRef} className="flex items-center gap-3">
             <i class="fa-solid fa-calendar-days text-slate-300"></i>
             <span
               onClick={() => setOpenDate(!openDate)}
-              className="headerSearchText"
+              className="text-slate-300 cursor-pointer text-lg"
             >{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
               dates[0].endDate,
               "dd/MM/yyyy"
@@ -439,13 +514,23 @@ export default function Profile() {
                 dateDisplayFormat="dd/MM/yyyy"
                 moveRangeOnFirstSelection={false}
                 ranges={dates}
-                className="date"
+                className="absolute"
                 minDate={new Date()}
                 disabledDates={[new Date("2023/06/13"), new Date("2023/06/14")]}
               />
             )}
           </div>
         </Box>
+      </Modal>
+
+      <Modal
+        open={openDV}
+        onClose={() => {
+          setOpenDV(false)
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <Box
           sx={{
             position: "absolute",
@@ -497,6 +582,7 @@ export default function Profile() {
           </div>
         </Box>
       </Modal>
+      
     </>
   );
 }
