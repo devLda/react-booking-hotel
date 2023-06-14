@@ -9,7 +9,8 @@ export {
 export * as loaiphong from "./loaiphong";
 export {
   apiPostDP,
-  apiCancelDP
+  apiCancelDP,
+  apiChangeDay
 } from "./datphong"
 
 export {
@@ -19,3 +20,8 @@ export {
 export {
   apiUpdateHD
 } from "./hoadon"
+
+export {
+  apiGetAllPhong,
+  apiGetPhong
+} from "./phong"

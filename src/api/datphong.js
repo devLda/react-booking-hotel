@@ -14,3 +14,10 @@ export const apiPostDP = (data) =>
     method: "put",
     data
   }) 
+
+  export const apiChangeDay = (id, data) =>
+  axios({
+    url: `/datphong/updateday/${id}`,
+    method: "put",
+    data
+  }) 

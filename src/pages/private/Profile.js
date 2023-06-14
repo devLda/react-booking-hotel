@@ -20,7 +20,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import Paralax from "../../components/UI/paralax";
-import { apiAllDV, apiGetBooking, apiUpdateHD } from "../../api";
+import {
+  apiAllDV,
+  apiChangeDay,
+  apiGetBooking,
+  apiGetPhong,
+  apiUpdateHD,
+} from "../../api";
 import Swal from "sweetalert2";
 
 import { apiCancelDP } from "../../api";
@@ -78,16 +84,22 @@ export default function Profile() {
 
   const [booking, setBooking] = useState([]);
 
+  const [lichDat, setLichDat] = useState([]);
+
   const [currentBook, setCurrentBook] = useState([]);
 
   const [dichVu, setDichVu] = useState([]);
 
-  const [idHD, setIdHD] = useState([]);
+  const [idHD, setIdHD] = useState("");
+
+  const [currentDP, setCurrentDP] = useState(null);
 
   const [openDialog, setOpenDialog] = useState(null);
 
   const [openDV, setOpenDV] = useState(false);
   const [openHD, setOpenHD] = useState(false);
+
+  const handleCloseHD = () => setOpenHD(false);
 
   const user = JSON.parse(
     JSON.parse(localStorage.getItem("persist:app/user")).current
@@ -110,10 +122,7 @@ export default function Profile() {
     } else Swal("Thất bại", "Đã xảy ra lỗi", "error");
   };
 
-  const filterCurrent = (phongs) => {
-    const tempRoom = [];
-    let current = false;
-
+  const getToday = () => {
     const now = new Date();
     const year = now.getFullYear() + "";
     const month =
@@ -121,7 +130,14 @@ export default function Profile() {
         ? "0" + (now.getMonth() + 1)
         : "" + (now.getMonth() + 1);
     const date = now.getDate() < 10 ? "0" + now.getDate() : "" + now.getDate();
-    const today = `${date}-${month}-${year}`;
+    return `${date}-${month}-${year}`;
+  };
+
+  const filterCurrent = (phongs) => {
+    const tempRoom = [];
+    let current = false;
+
+    const today = getToday();
 
     for (const item of phongs) {
       if (
@@ -184,8 +200,74 @@ export default function Profile() {
       });
   };
 
-  const handleChangDay = () => {
-    setOpenHD(true);
+  var getDaysBetweenDates = function (startDate, endDate) {
+    var now = moment(startDate, "DD-MM-YYYY"),
+      dates = [];
+    var end = moment(endDate, "DD-MM-YYYY");
+
+    while (now.isSameOrBefore(end)) {
+      dates.push(now.format("YYYY-MM-DD"));
+      now.add(1, "days");
+    }
+    return dates;
+  };
+
+  const getLichDat = async (MaPhong) => {
+    const today = getToday();
+    const response = await apiGetPhong(MaPhong);
+    if (response.success) {
+      console.log("ress ", response.mes);
+      response.mes.LichDat.forEach((item) => {
+        if (
+          moment(today, "DD-MM-YYYY").isBefore(
+            moment(item?.NgayBatDau, "DD-MM-YYYY")
+          )
+        ) {
+          var dateList = getDaysBetweenDates(
+            item?.NgayBatDau,
+            item?.NgayKetThuc
+          );
+          console.log("dl ", dateList);
+          dateList.forEach((item) => {
+            if (!lichDat.toString().includes(new Date(item).toString())) {
+              setLichDat((pre) => {
+                const date = new Date(item);
+                return [...pre, date];
+              });
+            }
+          });
+        }
+      });
+    }
+  };
+
+  const handleChangeDay = async () => {
+    const data = {};
+    data.NgayBatDau = moment(dates[0].startDate).format("DD-MM-YYYY");
+    data.NgayKetThuc = moment(dates[0].endDate).format("DD-MM-YYYY");
+
+    if (
+      data.NgayBatDau === currentDP.NgayBatDau &&
+      data.NgayKetThuc === currentDP.NgayKetThuc
+    ) {
+      Swal.fire("Thông tin", "Ngày bạn đang chọn trùng với đơn đặt", "info")
+    }
+    else {
+      const response = await apiChangeDay(currentDP._id, data)
+  
+      setOpenHD(false)
+      if(response.success) {
+        Swal.fire("Thành công", response.mes, "success").then(
+          () => {
+            window.location.reload();
+          }
+        );
+      }
+      else {
+        Swal.fire("Thất bại", response.mes, "error")
+      }
+    }
+
   };
 
   useEffect(() => {
@@ -329,6 +411,8 @@ export default function Profile() {
                           <button
                             className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
                             onClick={() => {
+                              setCurrentDP(item?.DatPhong);
+                              getLichDat(item?.MaPhong);
                               setOpenHD(true);
                             }}
                           >
@@ -404,73 +488,6 @@ export default function Profile() {
                         </DialogActions>
                       </Dialog>
                     )}
-
-                    <Modal
-                      open={openHD}
-                      onClose={() => {
-                        setOpenHD(false);
-                      }}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          width: "50vw",
-                          height: "50vh",
-                          transform: "translate(-50%, -50%)",
-                          bgcolor: "background.paper",
-                          border: "2px solid #000",
-                          boxShadow: 24,
-                          p: 4,
-                        }}
-                      >
-                        <Typography
-                          id="modal-modal-description"
-                          sx={{
-                            marginBottom: 5,
-                            fontSize: 20,
-                            fontWeight: 700,
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          Chọn lịch đặt mới
-                        </Typography>
-                        <div ref={dateRef} className="flex items-center gap-3">
-                          <i class="fa-solid fa-calendar-days text-slate-300"></i>
-                          <span
-                            onClick={() => setOpenDate(!openDate)}
-                            className="text-slate-300 cursor-pointer text-lg"
-                          >{`${format(
-                            dates[0].startDate,
-                            "dd/MM/yyyy"
-                          )} to ${format(
-                            dates[0].endDate,
-                            "dd/MM/yyyy"
-                          )}`}</span>
-                          {openDate && (
-                            <DateRange
-                              editableDateInputs={true}
-                              onChange={(item) => {
-                                console.log("change ", item.selection);
-                                setDates([item.selection]);
-                              }}
-                              dateDisplayFormat="dd/MM/yyyy"
-                              moveRangeOnFirstSelection={false}
-                              ranges={dates}
-                              className="absolute"
-                              minDate={new Date()}
-                              disabledDates={[
-                                new Date("2023/06/13"),
-                                new Date("2023/06/14"),
-                              ]}
-                            />
-                          )}
-                        </div>
-                      </Box>
-                    </Modal>
                   </div>
                 );
               })
@@ -543,6 +560,71 @@ export default function Profile() {
           </TabPanel>
         </Box>
       </div>
+
+      <Modal
+        open={openHD}
+        onClose={handleCloseHD}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            p: 4,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+          }}
+        >
+          <Typography
+            id="modal-modal-description"
+            sx={{
+              marginBottom: 3,
+              fontSize: 20,
+              fontWeight: 700,
+              textTransform: "uppercase",
+            }}
+          >
+            Chọn lịch đặt mới
+          </Typography>
+          <div ref={dateRef} className="flex items-center gap-3">
+            <i class="fa-solid fa-calendar-days text-slate-300"></i>
+            <span
+              onClick={() => setOpenDate(!openDate)}
+              className="text-slate-300 cursor-pointer text-lg"
+            >{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
+              dates[0].endDate,
+              "dd/MM/yyyy"
+            )}`}</span>
+            {openDate && (
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => {
+                  setDates([item.selection]);
+                }}
+                dateDisplayFormat="dd/MM/yyyy"
+                moveRangeOnFirstSelection={false}
+                ranges={dates}
+                className="absolute left-full shadow-2xl"
+                minDate={new Date()}
+                disabledDates={lichDat}
+              />
+            )}
+          </div>
+
+          <div className="mt-4">
+            <button
+              className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
+              onClick={handleChangeDay}
+            >
+              Đổi ngày
+            </button>
+          </div>
+        </Box>
+      </Modal>
 
       <Modal
         open={openDV}

@@ -5,3 +5,9 @@ export const apiGetAllPhong = () =>
     url: "/phong",
     method: "get",
   });
+
+  export const apiGetPhong = (MaPhong) =>
+  axios({
+    url: `/phong/maphong/${MaPhong}`,
+    method: "get",
+  });
