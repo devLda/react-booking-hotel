@@ -25,6 +25,7 @@ import {
   apiChangeDay,
   apiGetBooking,
   apiGetPhong,
+  apiHuyDV,
   apiUpdateHD,
 } from "../../api";
 import Swal from "sweetalert2";
@@ -89,6 +90,8 @@ export default function Profile() {
   const [currentBook, setCurrentBook] = useState([]);
 
   const [dichVu, setDichVu] = useState([]);
+
+  const [listDV, setListDV] = useState([]);
 
   const [idHD, setIdHD] = useState("");
 
@@ -165,12 +168,12 @@ export default function Profile() {
     setCurrentBook(tempRoom);
   };
 
-  const ThemDichVu = () => {
+  const getValueTable = () => {
     const temp = [];
 
     const tr = document.querySelectorAll(".tblThemDV tr");
 
-    tr.forEach((item, index) => {
+    tr.forEach((item) => {
       if (item.childNodes[0].childNodes[0]?.checked) {
         temp.push({
           MaDichVu: item.childNodes[0].childNodes[0]?.value,
@@ -183,11 +186,37 @@ export default function Profile() {
       }
     });
 
+    return temp;
+  };
+
+  const ThemDichVu = () => {
+    const temp = getValueTable();
+
     apiUpdateHD(idHD, temp)
       .then((res) => {
         console.log("res ", res);
         setOpenDV(false);
         Swal.fire("Thành công", "Thêm dịch vụ thành công", "success").then(
+          () => {
+            window.location.reload();
+          }
+        );
+      })
+      .catch((err) => {
+        console.log("err ", err);
+        setOpenDV(false);
+        Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
+      });
+  };
+
+  const HuyDichVu = () => {
+    const temp = getValueTable();
+
+    apiHuyDV(idHD, temp)
+      .then((res) => {
+        console.log("res ", res);
+        setOpenDV(false);
+        Swal.fire("Thành công", "Huỷ dịch vụ thành công", "success").then(
           () => {
             window.location.reload();
           }
@@ -250,24 +279,19 @@ export default function Profile() {
       data.NgayBatDau === currentDP.NgayBatDau &&
       data.NgayKetThuc === currentDP.NgayKetThuc
     ) {
-      Swal.fire("Thông tin", "Ngày bạn đang chọn trùng với đơn đặt", "info")
-    }
-    else {
-      const response = await apiChangeDay(currentDP._id, data)
-  
-      setOpenHD(false)
-      if(response.success) {
-        Swal.fire("Thành công", response.mes, "success").then(
-          () => {
-            window.location.reload();
-          }
-        );
-      }
-      else {
-        Swal.fire("Thất bại", response.mes, "error")
-      }
-    }
+      Swal.fire("Thông tin", "Ngày bạn đang chọn trùng với đơn đặt", "info");
+    } else {
+      const response = await apiChangeDay(currentDP._id, data);
 
+      setOpenHD(false);
+      if (response.success) {
+        Swal.fire("Thành công", response.mes, "success").then(() => {
+          window.location.reload();
+        });
+      } else {
+        Swal.fire("Thất bại", response.mes, "error");
+      }
+    }
   };
 
   useEffect(() => {
@@ -538,6 +562,20 @@ export default function Profile() {
                         {" "}
                         <b>Tổng tiền:</b> {item?.TongTien} $
                       </p>
+                      <div className="absolute bottom-16 right-0">
+                        {item?.DichVu?.length > 0 && (
+                          <button
+                            className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
+                            onClick={() => {
+                              setOpenDV(true);
+                              setIdHD(item?._id);
+                              setListDV(item?.DichVu);
+                            }}
+                          >
+                            Huỷ dịch vụ
+                          </button>
+                        )}
+                      </div>
 
                       <div className="absolute bottom-0 right-0">
                         <button
@@ -545,6 +583,7 @@ export default function Profile() {
                           onClick={() => {
                             setOpenDV(true);
                             setIdHD(item?._id);
+                            setListDV(dichVu);
                           }}
                         >
                           Thêm dịch vụ
@@ -664,7 +703,7 @@ export default function Profile() {
               <th>Giá dịch vụ</th>
               <th>Số lượng</th>
             </tr>
-            {dichVu?.map((item, index) => (
+            {listDV?.map((item, index) => (
               <tr key={index}>
                 <td>
                   <input type="checkbox" value={item?.MaDichVu} />
@@ -672,16 +711,27 @@ export default function Profile() {
                 <td>{item?.TenDichVu}</td>
                 <td>{item?.GiaDichVu} $</td>
                 <td>
-                  <input type="number" min={1} max={5} />
+                  <input
+                    type="number"
+                    min={1}
+                    max={item?.SoLuong > 0 ? item?.SoLuong : 99}
+                  />
                 </td>
               </tr>
             ))}
           </table>
 
           <div className="bg-yellow-600 hover:bg-yellow-700 my-3 text-white inline-block ">
-            <button className="p-3" onClick={ThemDichVu}>
-              Thêm dịch vụ
-            </button>
+            {listDV[0]?.SoLuong > 0 && (
+              <button className="p-3" onClick={HuyDichVu}>
+                Huỷ dịch vụ
+              </button>
+            )}
+            {!listDV[0]?.SoLuong && (
+              <button className="p-3" onClick={ThemDichVu}>
+                Thêm dịch vụ
+              </button>
+            )}
           </div>
         </Box>
       </Modal>
