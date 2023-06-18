@@ -59,14 +59,14 @@ const Header = () => {
         <nav className="flex items-end space-x-1">
           <ul className="font-normal tracking-widest">
             <li>
-              <Link to="/">HOME</Link>
+              <Link to="/">Trang chủ</Link>
             </li>
             <li>
-              <Link to="/about">ABOUT</Link>
+              <Link to="/about">Về chúng tôi</Link>
             </li>
             <li className="sub-nav">
               <Link to="/room">
-                ROOM
+                Phòng
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -83,15 +83,18 @@ const Header = () => {
                 </svg>
               </Link>
               <ul>
-                {loaiphong?.map((item, index) => 
+                {loaiphong?.map((item, index) => (
                   <li key={index}>
                     {" "}
-                    <Link to={`/${path.DETAIL_ROOM}/${item._id}`}> {item.TenLoaiPhong} </Link>
+                    <Link to={`/${path.DETAIL_ROOM}/${item._id}`}>
+                      {" "}
+                      {item.TenLoaiPhong}{" "}
+                    </Link>
                   </li>
-                )}
+                ))}
               </ul>
             </li>
-            <li className="sub-nav">
+            {/* <li className="sub-nav">
               <Link to="/services">
                 SERVICES
                 <svg
@@ -123,7 +126,7 @@ const Header = () => {
                   <Link to="/"> Extra </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
             {/* <li>
               <Link to="/moment">MOMENT</Link>
             </li>
@@ -131,7 +134,7 @@ const Header = () => {
               <Link to="/news">NEWS</Link>
             </li> */}
             <li>
-              <Link to="/contact">CONTACT</Link>
+              <Link to="/contact">Liên hệ</Link>
             </li>
             {isLoggedIn?.HoVaTen ? (
               // <li>{isLoggedIn.HoVaTen}</li>
@@ -163,14 +166,14 @@ const Header = () => {
                     {" "}
                     <Link to="#" onClick={(e) => Logout(e)}>
                       {" "}
-                      Log out{" "}
+                      Đăng xuất{" "}
                     </Link>
                   </li>
                 </ul>
               </li>
             ) : (
               <li>
-                <Link to="/login">LOGIN</Link>
+                <Link to="/login">Đăng nhập</Link>
               </li>
             )}
           </ul>

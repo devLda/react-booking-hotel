@@ -8,14 +8,14 @@ const Footer = () => {
       <div class="container flex ">
         <div class="w-6/12 px-5">
           <div class="footer-column footer-about">
-            <h3 class="footer-title">ANH OCT HOTEL</h3>
+            <h3 class="footer-title">KHÁCH SẠN ANH OCT</h3>
             <ul class="footer-about-text">
               <li>
-                <b>Address:</b> 3 Cau Giay Street, Lang Thuong Ward, Dong Da
-                District, Hanoi, Vietnam
+                <b>Địa chỉ:</b> Số 3 Cầu Giấy, Phường Láng Thượng, Quận Đống
+                Đa,Thành phố Hà Nội
               </li>
               <li>
-                <b>Zalo/Call:</b> +849028888888
+                <b>Điện thoại liên hệ:</b> +849028888888
               </li>
               <li>
                 <b>Email:</b> Sales@anhocthotel.com
@@ -49,39 +49,39 @@ const Footer = () => {
         </div>
         <div class="w-3/12 px-5">
           <div class="footer-column footer-explore clearfix">
-            <h3 class="footer-title">THINGS TO KNOW</h3>
+            <h3 class="footer-title">ĐIỀU CẦN BIẾT</h3>
             <ul class="footer-explore-list list-unstyled">
               <li>
                 <Link to="/">FAQS</Link>
               </li>
               <li>
-                <Link to="/">Warning</Link>
+                <Link to="/">Cảnh báo</Link>
               </li>
               <li>
-                <Link to="/">Location</Link>
+                <Link to="/">Vị trí</Link>
               </li>
             </ul>
           </div>
         </div>
         <div class="w-3/12 px-5">
           <div class="footer-column footer-explore clearfix">
-            <h3 class="footer-title">TERM &amp; CONDITION</h3>
+            <h3 class="footer-title">KÌ HẠN VÀ ĐIỀU KIỆN</h3>
             <ul class="footer-explore-list list-unstyled">
               <li>
-                <Link to="/">Terms and Conditions</Link>
+                <Link to="/">Kì hạn và điều kiện</Link>
               </li>
               <li>
-                <Link to="/">Privacy Policy</Link>
+                <Link to="/">Chính sách bảo mật</Link>
               </li>
               <li>
-                <Link to="/">Payments &amp; method</Link>
+                <Link to="/">Phương thức thanh toán</Link>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div className="w-full text-center text-xs text-white">
-        <p>© Copyright 2023 by Anh Oct Hotel</p>
+        <p>© Bản quyền 2023 thuộc sở hữu của Khách sạn Anh Oct</p>
       </div>
     </footer>
   );

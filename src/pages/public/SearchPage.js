@@ -24,8 +24,12 @@ const SearchPage = () => {
   const [roomFilter, setRoomFilter] = useState([]);
 
   const [infoPhong, setInfoPhong] = useState({
-    startDate: moment(location.state.startDate).format("DD/MM/YYYY"),
-    endDate: moment(location.state.endDate).format("DD/MM/YYYY"),
+    startDate: location?.state?.startDate
+      ? moment(location.state.startDate).format("DD/MM/YYYY")
+      : moment().format("DD/MM/YYYY"),
+    endDate: location?.state?.endDate
+      ? moment(location.state.endDate).format("DD/MM/YYYY")
+      : moment().format("DD/MM/YYYY"),
   });
 
   const filterRoom = (start, end, searchKey, loaiphong, phongs) => {
@@ -123,13 +127,13 @@ const SearchPage = () => {
       title: item.TenLoaiPhong,
     };
   });
-  LPSelect.unshift({ id: "All", title: "All" });
+  LPSelect.unshift({ id: "All", title: "Tất cả" });
 
   // console.log("info phong ", infoPhong);
 
   return (
     <>
-      <Paralax title="ANH OCT LUXURY HOTEL" content="Search Page" />
+      <Paralax title="KHÁCH SẠN SANG TRỌNG ANH OCT" content="Trang tìm kiếm" />
 
       <Search
         options={LPSelect}
@@ -137,8 +141,8 @@ const SearchPage = () => {
           startDate: location.state?.startDate,
           endDate: location.state?.endDate,
         }}
-        iniSelect={location.state.loaiphong}
-        iniSearch={location.state.search}
+        iniSelect={location?.state?.loaiphong}
+        iniSearch={location?.state?.search}
         setData={setQuery}
       />
 

@@ -14,6 +14,46 @@ import "react-awesome-slider/dist/styles.css";
 import { create } from "../../../store/datphong/datphongSlice";
 import path from "../../../utils/path";
 
+const vnd = 23000;
+
+const formatMoney = (tien) => {
+  console.log("tien ", tien);
+  let moneyFormat = "";
+  const arrMoney = [];
+  while (tien > 0) {
+    if (tien % 1000 === 0) {
+      arrMoney.push(tien % 1000);
+      tien = tien / 1000;
+    } else {
+      arrMoney.push(tien % 1000);
+      tien = Math.floor(tien / 1000);
+    }
+  }
+
+  console.log("arr ", arrMoney);
+
+  for (let i = arrMoney.length - 1; i >= 0; i--) {
+    if (i === arrMoney.length - 1) {
+      moneyFormat += arrMoney[i] + ".";
+      continue;
+    }
+    if (arrMoney[i] > 99) {
+      moneyFormat += arrMoney[i];
+    }
+    if (9 < arrMoney[i] && arrMoney[i] < 100) {
+      moneyFormat += arrMoney[i] + "0";
+    }
+    if (arrMoney[i] < 10) {
+      moneyFormat += arrMoney[i] + "00";
+    }
+
+    if (i > 0) {
+      moneyFormat += ".";
+    }
+  }
+  return moneyFormat;
+};
+
 const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const ItemBooking = ({ phong, infoPhong }) => {
@@ -64,7 +104,7 @@ const ItemBooking = ({ phong, infoPhong }) => {
           Số người tối đa: {phong?.SoNguoi} người lớn
         </p>
         <p className="font-OpenSans text-xl mt-2">
-          Giá phòng: {phong?.GiaPhong} $/1 ngày
+          Giá phòng: {formatMoney(phong?.GiaPhong * vnd)} đ/1 ngày
         </p>
         <p className="font-OpenSans text-xl mt-2">Tầng: {phong?.Tang}</p>
 
@@ -73,7 +113,7 @@ const ItemBooking = ({ phong, infoPhong }) => {
             <button className="p-3" onClick={handleOpen}>
               Xem chi tiết
             </button>
-          </div> 
+          </div>
         </div>
       </div>
 
@@ -90,19 +130,22 @@ const ItemBooking = ({ phong, infoPhong }) => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: 800,
-            height:  600,
+            height: 600,
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
-            overflowY: "scroll"
+            overflowY: "scroll",
           }}
         >
-          <Typography id="modal-modal-description" sx={{ fontSize: 20, fontWeight: 700, textTransform: "uppercase" }}>
+          <Typography
+            id="modal-modal-description"
+            sx={{ fontSize: 20, fontWeight: 700, textTransform: "uppercase" }}
+          >
             Thông tin chi tiết
           </Typography>
           <Typography id="modal-modal-title" variant="h3" component="h2">
-           {phong?.LoaiPhong.TenLoaiPhong}
+            {phong?.LoaiPhong.TenLoaiPhong}
           </Typography>
           <AutoplaySlider
             className="client-wrapper h-full w-full mt-3"
@@ -121,40 +164,43 @@ const ItemBooking = ({ phong, infoPhong }) => {
               </div>
             ))}
           </AutoplaySlider>
-          
-          <Typography sx={{marginTop: 5}}>
+
+          <Typography sx={{ marginTop: 5 }}>
             Số phòng: <b>{phong?.MaPhong}</b>
           </Typography>
           <Typography>
             Tầng: <b>{phong?.Tang}</b>
           </Typography>
           <Typography>
-              Diện tích: <b>{phong?.DienTich} m&#178;</b>
+            Diện tích: <b>{phong?.DienTich} m&#178;</b>
           </Typography>
           <Typography>
-              Số người tối đa: <b>{phong?.SoNguoi} người</b>
+            Số người tối đa: <b>{phong?.SoNguoi} người</b>
           </Typography>
           <Typography>
-            Giá phòng: <b>{phong?.GiaPhong} $/1 ngày</b>
+            Giá phòng: <b>{formatMoney(phong?.GiaPhong * vnd)} đ/1 ngày</b>
           </Typography>
 
-          <Typography sx={{my: 4}}>
-            Khách sạn AnhOct Luxury nằm giữa trung tâm kinh tế và văn hóa của Thành Phố Hà Nội, Khách sạn AnhOct Luxury mong muốn là cánh cửa đầu tiên ở Hà Nội chào đón Quý khách trong nước và Quốc tế về với Hà Nội
+          <Typography sx={{ my: 4 }}>
+            Khách sạn AnhOct Luxury nằm giữa trung tâm kinh tế và văn hóa của
+            Thành Phố Hà Nội, Khách sạn AnhOct Luxury mong muốn là cánh cửa đầu
+            tiên ở Hà Nội chào đón Quý khách trong nước và Quốc tế về với Hà Nội
           </Typography>
 
           <Typography>
-            Loại phòng {phong?.LoaiPhong.TenLoaiPhong} có rất nhiều tiện nghi như:
+            Loại phòng {phong?.LoaiPhong.TenLoaiPhong} có rất nhiều tiện nghi
+            như:
           </Typography>
           <ul>
-            {
-              phong?.LoaiPhong?.TienNghi.map((item, index) => <li key={index}>
-               - {item}
-              </li>)
-            }
+            {phong?.LoaiPhong?.TienNghi.map((item, index) => (
+              <li key={index}>- {item}</li>
+            ))}
           </ul>
 
           <div className="bg-yellow-800 my-3 text-white inline-block ">
-            <button className="p-3" onClick={handleClick}>Đặt phòng ngay</button>
+            <button className="p-3" onClick={handleClick}>
+              Đặt phòng ngay
+            </button>
           </div>
         </Box>
       </Modal>

@@ -8,16 +8,15 @@ export const apiPostDP = (data) =>
     withCredentials: true,
   });
 
-  export const apiCancelDP = (data) =>
+export const apiCancelDP = (id) =>
   axios({
-    url: "/datphong/cancel",
-    method: "put",
-    data
-  }) 
+    url: `/datphong/cancel/${id}`,
+    method: "get",
+  });
 
-  export const apiChangeDay = (id, data) =>
+export const apiChangeDay = (id, data) =>
   axios({
     url: `/datphong/updateday/${id}`,
     method: "put",
-    data
-  }) 
+    data,
+  });

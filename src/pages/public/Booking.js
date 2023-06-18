@@ -26,7 +26,7 @@ import LogoBreakfast from "../../assets/img/booking/icon-package-mealplan-breakf
 import LogoCheck from "../../assets/img/booking/icon-package-salesterms-check.png";
 import LogoPayment from "../../assets/img/booking/icon-package-salesterms-payment-checkout.png";
 
-import {LoadingData} from "../../components/UI/loading"
+import { LoadingData } from "../../components/UI/loading";
 
 import { object, string } from "yup";
 import { apiPostDP } from "../../api/datphong";
@@ -37,6 +37,45 @@ import path from "../../utils/path";
 
 import StripeCheckout from "react-stripe-checkout";
 
+const vnd = 23000;
+
+const formatMoney = (tien) => {
+  console.log("tien ", tien);
+  let moneyFormat = "";
+  const arrMoney = [];
+  while (tien > 0) {
+    if (tien % 1000 === 0) {
+      arrMoney.push(tien % 1000);
+      tien = tien / 1000;
+    } else {
+      arrMoney.push(tien % 1000);
+      tien = Math.floor(tien / 1000);
+    }
+  }
+
+  console.log("arr ", arrMoney);
+
+  for (let i = arrMoney.length - 1; i >= 0; i--) {
+    if (i === arrMoney.length - 1) {
+      moneyFormat += arrMoney[i] + ".";
+      continue;
+    }
+    if (arrMoney[i] > 99) {
+      moneyFormat += arrMoney[i];
+    }
+    if (9 < arrMoney[i] && arrMoney[i] < 100) {
+      moneyFormat += arrMoney[i] + "0";
+    }
+    if (arrMoney[i] < 10) {
+      moneyFormat += arrMoney[i] + "00";
+    }
+
+    if (i > 0) {
+      moneyFormat += ".";
+    }
+  }
+  return moneyFormat;
+};
 // const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const phoneRegExp =
@@ -68,7 +107,7 @@ const Booking = () => {
 
   const [openDialog, setOpenDialog] = useState(null);
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   // setData(dataBook);
 
@@ -167,8 +206,8 @@ const Booking = () => {
 
   if (!dataBook) {
     Swal.fire("Thông tin", "Chưa chọn phòng", "info").then(() => {
-      if(user){
-      navigate(`/${path.PROFILE}`);
+      if (user) {
+        navigate(`/${path.PROFILE}`);
       }
       navigate(`/${path.HOME}`);
     });
@@ -182,21 +221,21 @@ const Booking = () => {
     data.token = token;
 
     console.log("token ", data);
-    
-    setLoading(true)
+
+    setLoading(true);
 
     const response = await apiPostDP(data);
     if (response.success) {
-      setLoading(false)
+      setLoading(false);
       Swal.fire(
         "Thành công",
         `Đơn đặt phòng của bạn đã thành công. 
         Vui lòng kiểm tra email để xem chi tiết hóa đơn`,
         "success"
       ).then(() => {
-        if(user){
+        if (user) {
           navigate(`/${path.PROFILE}`);
-          }
+        }
         navigate(`/${path.HOME}`);
       });
     } else Swal.fire("Thất bại", "Đã xảy ra lỗi", "error");
@@ -204,10 +243,8 @@ const Booking = () => {
 
   return (
     <div className="booking">
-      {
-        loading && <LoadingData />
-      }
-      <Paralax title="ANH OCT LUXURY HOTEL" content="Reservation" />
+      {loading && <LoadingData />}
+      <Paralax title="KHÁCH SẠN SANG TRỌNG ANH OCT" content="Đặt phòng" />
       <div className="container mt-8">
         <>
           <Card
@@ -253,7 +290,7 @@ const Booking = () => {
               }}
               variant="h6"
             >
-              <h2 className="my-4 font-bold">AnhOct Luxury Hotel</h2>
+              <h2 className="my-4 font-bold">Khách sạn sang trọng AnhOct</h2>
               <h4 className="my-4">
                 Địa chỉ: Số 3 Cầu Giấy, phường Láng Thượng, Quận Đống Đa, Thành
                 phố Hà Nội
@@ -288,7 +325,7 @@ const Booking = () => {
                       fontWeight: 700,
                     }}
                   >
-                    Room 1
+                    Phòng 1
                   </Typography>
                   <Typography
                     sx={{
@@ -299,7 +336,7 @@ const Booking = () => {
                     {data?.SoNguoi} người lớn
                   </Typography>
                 </Box>
-                <Box className="w-3/5">
+                <Box className="w-2/5">
                   <Typography
                     sx={{
                       mb: 1,
@@ -337,10 +374,13 @@ const Booking = () => {
                     </span>
                   </Typography>
                 </Box>
-                <Box className="w-1/5">
-                  <Typography sx={{ fontWeight: 700 }} variant="h4">{`${
-                    data?.TotalDay * data?.GiaPhong
-                  } $`}</Typography>
+                <Box className="w-2/5">
+                  <Typography
+                    sx={{ fontWeight: 700, textAlign: "right" }}
+                    variant="h4"
+                  >{`${formatMoney(
+                    (data?.TotalDay ? data?.TotalDay : 1) * data?.GiaPhong * vnd
+                  )} đ`}</Typography>
                 </Box>
               </Box>
               <Box
@@ -348,7 +388,7 @@ const Booking = () => {
                   my: 3,
                   mx: 2,
                 }}
-                className="w-full flex"
+                className="w-full flex justify-around"
               >
                 <Box className="1/5 text-center">
                   <span className="text-3xl font-bold">Tổng</span>
@@ -357,31 +397,40 @@ const Booking = () => {
                 <Box className="w-4/5 text-right">
                   <ul className="ml-4">
                     <li className="border-b border-solid border-slate-100 pt-3">
-                      <span className="text-3xl font-bold">{`${
-                        data?.TotalDay * data?.GiaPhong
-                      } $`}</span>
+                      <span className="text-3xl font-bold">{`${formatMoney(
+                        (data?.TotalDay ? data?.TotalDay : 1) *
+                          data?.GiaPhong *
+                          vnd
+                      )} đ`}</span>
                     </li>
                     <li className="relative border-b border-solid border-slate-100 py-3">
                       <p className="ml-3 w-2/3 text-left">
                         Không bao gồm: Phí dịch vụ phát sinh
                       </p>{" "}
-                      <span className="absolute top-3 right-1">0$</span>
+                      <span className="absolute top-3 right-1">0đ</span>
                     </li>
                     <li className="relative border-b border-solid border-slate-100 py-3">
                       <p className="ml-3 w-2/3 text-left">
                         Không bao gồm: Thuế VAT / Thuế tiêu thụ
                       </p>
-                      <span className="absolute top-3 right-1">{`${
-                        data?.TotalDay * data?.GiaPhong * 0.1
-                      } $`}</span>
+                      <span className="absolute top-3 right-1">{`${formatMoney(
+                        (data?.TotalDay ? data?.TotalDay : 1) *
+                          data?.GiaPhong *
+                          0.1 *
+                          vnd
+                      )} đ`}</span>
                     </li>
                     <li className="relative border-b border-solid border-slate-100 py-3 bg-slate-100 h-18 ">
-                      <p className="ml-3 w-2/3 text-left">
+                      <p className="ml-3 w-full text-left">
                         Tổng số tiền khi trả phòng cần thanh toán là:
                       </p>
-                      <span className="absolute top-3 right-1 text-4xl">{`${
-                        (data?.TotalDay * data?.GiaPhong * 11) / 10
-                      } $`}</span>
+                      <span className="absolute top-3 right-1 text-4xl">{`${formatMoney(
+                        ((data?.TotalDay ? data?.TotalDay : 1) *
+                          data?.GiaPhong *
+                          vnd *
+                          11) /
+                          10
+                      )} đ`}</span>
                     </li>
                   </ul>
                 </Box>
@@ -528,9 +577,15 @@ const Booking = () => {
                     Không
                   </Button>
                   <StripeCheckout
-                    amount={(data?.TotalDay * data?.GiaPhong * 300) / 10}
+                    amount={
+                      ((data?.TotalDay ? data?.TotalDay : 1) *
+                        data?.GiaPhong *
+                        vnd *
+                        3) /
+                      10
+                    }
                     token={handleCheckout}
-                    currency="USD"
+                    currency="VND"
                     stripeKey="pk_test_51N9Nf4CcdPVMLpZJbiVwvUbIEHXdzq2iOdtO84r1F2N6NTbg8AY85ahuFycJ41CaxYNnpv44r4hqbSLfO3rg0AFs00s0OKdR5e"
                   >
                     <Button

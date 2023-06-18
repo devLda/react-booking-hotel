@@ -35,6 +35,44 @@ import { Button } from "../../components/UI/form";
 import moment from "moment";
 import "../../styles/profile.css";
 
+const vnd = 23000;
+
+const formatMoney = (tien) => {
+  let moneyFormat = "";
+  const arrMoney = [];
+  while (tien > 0) {
+    if (tien % 1000 === 0) {
+      arrMoney.push(tien % 1000);
+      tien = tien / 1000;
+    } else {
+      arrMoney.push(tien % 1000);
+      tien = Math.floor(tien / 1000);
+    }
+  }
+
+  for (let i = arrMoney.length - 1; i >= 0; i--) {
+    if (i === arrMoney.length - 1) {
+      moneyFormat += arrMoney[i] + ".";
+      continue;
+    }
+
+    if (arrMoney[i] > 99) {
+      moneyFormat += arrMoney[i];
+    }
+    if (9 < arrMoney[i] && arrMoney[i] < 100) {
+      moneyFormat += arrMoney[i] + "0";
+    }
+    if (arrMoney[i] < 10) {
+      moneyFormat += arrMoney[i] + "00";
+    }
+
+    if (i > 0) {
+      moneyFormat += ".";
+    }
+  }
+  return moneyFormat;
+};
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -112,14 +150,10 @@ export default function Profile() {
     setValue(newValue);
   };
 
-  const cancelBooking = async (IdHoaDon, IdDatPhong) => {
-    const data = {
-      IdHoaDon: IdHoaDon,
-      IdDatPhong: IdDatPhong,
-    };
-    const response = await apiCancelDP(data);
+  const cancelBooking = async (IdDatPhong) => {
+    const response = await apiCancelDP(IdDatPhong);
     if (response.success) {
-      Swal.fire("Thành công", "Hủy đơn đặt thành công", "success").then(() => {
+      Swal.fire("Thành công", response.mes, "success").then(() => {
         window.location.reload();
       });
     } else Swal("Thất bại", "Đã xảy ra lỗi", "error");
@@ -178,7 +212,10 @@ export default function Profile() {
         temp.push({
           MaDichVu: item.childNodes[0].childNodes[0]?.value,
           TenDichVu: item.childNodes[1].innerText,
-          GiaDichVu: parseFloat(item.childNodes[2].innerText.replace("$", "")),
+          GiaDichVu:
+            parseFloat(
+              item.childNodes[2].innerText.replace(" đ", "").replaceAll(".", "")
+            ) / vnd,
           SoLuong: item.childNodes[3].childNodes[0]?.value
             ? parseFloat(item.childNodes[3].childNodes[0]?.value)
             : 1,
@@ -191,6 +228,8 @@ export default function Profile() {
 
   const ThemDichVu = () => {
     const temp = getValueTable();
+
+    console.log("temppp ", temp);
 
     apiUpdateHD(idHD, temp)
       .then((res) => {
@@ -404,18 +443,19 @@ export default function Profile() {
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
-                        <b>Đã thanh toán:</b> {ThanhToan} $
+                        <b>Đã thanh toán:</b> {formatMoney(ThanhToan * vnd)} đ
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
-                        <b>Còn phải trả:</b> {ChuaThanhToan} $
+                        <b>Còn phải trả:</b> {formatMoney(ChuaThanhToan * vnd)}{" "}
+                        đ
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
                         <b>Trạng thái:</b> {item?.DatPhong?.TrangThai}
                       </p>
 
-                      <div className="absolute bottom-32 right-0">
+                      {/* <div className="absolute bottom-32 right-0">
                         {item?.DatPhong?.TrangThai === "Đã đặt" ? (
                           <button
                             className="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 text-white"
@@ -428,7 +468,7 @@ export default function Profile() {
                         ) : (
                           <></>
                         )}
-                      </div>
+                      </div> */}
 
                       <div className="absolute bottom-16 right-0">
                         {item?.DatPhong?.TrangThai === "Đã đặt" ? (
@@ -504,7 +544,7 @@ export default function Profile() {
                               mx: 2,
                             }}
                             onClick={() => {
-                              cancelBooking(item._id, item?.DatPhong?._id);
+                              cancelBooking(item?.DatPhong?._id);
                               setOpenDialog(false);
                             }}
                             text={"Có"}
@@ -560,7 +600,7 @@ export default function Profile() {
                       </p>
                       <p className="mb-2 text-base">
                         {" "}
-                        <b>Tổng tiền:</b> {item?.TongTien} $
+                        <b>Tổng tiền:</b> {formatMoney(item?.TongTien * vnd)} đ
                       </p>
                       <div className="absolute bottom-16 right-0">
                         {item?.DichVu?.length > 0 && (
@@ -709,7 +749,7 @@ export default function Profile() {
                   <input type="checkbox" value={item?.MaDichVu} />
                 </td>
                 <td>{item?.TenDichVu}</td>
-                <td>{item?.GiaDichVu} $</td>
+                <td>{formatMoney(item?.GiaDichVu * vnd)} đ</td>
                 <td>
                   <input
                     type="number"

@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "../../../styles/slider.css";
 
+import path from "../../../utils/path";
+
 const SliderHome = ({ sliders }) => {
+  const navigate = useNavigate();
+
   const [indexCurrent, setIndexCurrent] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
 
@@ -60,13 +64,22 @@ const SliderHome = ({ sliders }) => {
                           {slider.desc_2}
                         </h1>
                         <div className="butn-light my-7 animate-slider">
-                          <Link
-                            to="/"
-                            className="bg-transparent text-white px-5 py-3 m-0 relative"
+                          <p
+                            className="inline-block cursor-pointer bg-transparent text-white px-5 py-3 m-0 relative"
                             data-scroll-nav="1"
+                            onClick={() => {
+                              navigate(`/${path.SEARCH}`, {
+                                state: {
+                                  startDate: new Date(),
+                                  endDate: new Date(),
+                                  search: "",
+                                  loaiphong: "All",
+                                },
+                              });
+                            }}
                           >
-                            <span>Rooms Suites</span>
-                          </Link>
+                            <span>Đặt phòng ngay</span>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -100,8 +113,8 @@ const SliderHome = ({ sliders }) => {
             <i class="fa-solid fa-phone-volume"></i>
           </div>
           <div className="call">
-            <span>855 100 4444</span> <br />
-            Reservation
+            <span>+849028888888</span> <br />
+            Đặt phòng ngay
           </div>
         </a>
       </div>

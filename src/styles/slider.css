@@ -1,15 +1,15 @@
-.slider-wrapper{
+.slider-wrapper {
   display: flex;
   height: 100vh;
 }
 
-.slider{
+.slider {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.slider-card{
+.slider-card {
   display: flex;
   flex: 1;
   position: absolute;
@@ -23,18 +23,18 @@
   transition: 0.5s ease-in-out;
 }
 
-.slider-card-active{
+.slider-card-active {
   opacity: 1;
   transform: scale(1);
   pointer-events: visible;
 }
 
-.card-image{
+.card-image {
   width: 100%;
   object-fit: cover;
 }
 
-.card-overlay{
+.card-overlay {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -44,35 +44,34 @@
   align-items: flex-end;
 }
 
-.card-title{
+.card-title {
   color: white;
   font-size: 30px;
 }
 
-.slider-pagination{
+.slider-pagination {
   position: absolute;
   top: 50%;
   right: 24px;
   transform: translate(-50%, 0);
 }
 
-.pagination-dot{
+.pagination-dot {
   height: 12px;
   width: 12px;
   background-color: #fff;
   border-radius: 50%;
   margin-bottom: 12px;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
-.pagination-dot:hover{
+.pagination-dot:hover {
   transform: scale(1.2);
 }
 
-.pagination-dot-active{
+.pagination-dot-active {
   background-color: #aa8453;
 }
-
 
 .slider .item-slider {
   position: absolute;
@@ -124,32 +123,32 @@
 }
 
 .slider span i.star-rating {
-    -webkit-animation-delay: .8s;
-    animation-delay: .8s;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
 }
 
 .v-middle {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 0;
-    -webkit-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
 }
 
 .slider .caption h4 {
-    animation-delay: .4s;
+  animation-delay: 0.4s;
 }
 .slider .caption h1 {
-    font-family: 'Gilda Display', serif;
-    letter-spacing: 16px;
-    -webkit-animation-delay: .6s;
-    animation-delay: .6s;
+  font-family: "Gilda Display", serif;
+  letter-spacing: 16px;
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 
 .slider .caption .butn-light {
-  -webkit-animation-delay: .8s;
-  animation-delay: .8s;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
 }
 
 .butn-light {
@@ -157,13 +156,15 @@
   line-height: 1.2em;
 }
 
-.butn-light a {
+.butn-light a,
+.butn-light p {
   letter-spacing: 3px;
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.butn-light a:after {
-  content: '';
+.butn-light a:after,
+.butn-light p:after {
+  content: "";
   width: 0;
   height: 100%;
   position: absolute;
@@ -174,21 +175,24 @@
   transition: all 0.3s ease;
   background: #fff;
 }
-.butn-light a span {
+.butn-light a span,
+.butn-light p span {
   position: relative;
   z-index: 2;
 }
-.butn-light a:hover:after {
+.butn-light a:hover:after,
+.butn-light p:hover:after {
   width: 100%;
   left: 0;
   -webkit-transition: width 0.3s ease;
   transition: width 0.3s ease;
 }
-.butn-light a:hover span {
+.butn-light a:hover span,
+.butn-light p:hover span {
   color: #222;
 }
 
-.animate-slider{
+.animate-slider {
   animation-duration: 1s;
   animation-fill-mode: both;
 }
@@ -214,20 +218,20 @@
 .slider-wrapper .reservation .call {
   color: #fff;
   text-transform: uppercase;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 400;
   letter-spacing: 5px;
   font-size: 12px;
   line-height: 1.75em;
   margin-top: 15px;
-} 
+}
 
 .reservation .call span {
-     font-family: 'Gilda Display', serif;
+  font-family: "Gilda Display", serif;
   font-size: 24px;
   color: #aa8453;
   letter-spacing: 1px;
-} 
+}
 
 .slider-wrapper .reservation .icon {
   position: absolute;
@@ -235,13 +239,13 @@
   top: -50px;
   width: 50px;
   height: 50px;
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   -webkit-animation: pulse 2s infinite;
   animation: pulse 2s infinite;
   border-radius: 100%;
 }
 .reservation .icon i {
-  color: #FFF;
+  color: #fff;
   font-size: 28px;
   padding-left: 8px;
   padding-bottom: 8px;
@@ -252,7 +256,7 @@
 }
 @media screen and (max-width: 768px) {
   .slider-wrapper .reservation {
-      display: none;
+    display: none;
   }
 }
 
@@ -263,8 +267,7 @@
   width: 100%;
   bottom: 5%;
   z-index: 5;
-} 
-
+}
 
 .booking-wrapper form .col1 {
   float: left;
@@ -311,13 +314,12 @@
   margin-bottom: 15px;
 }
 
-
 .input_inner {
   position: relative;
 }
 
 .input_inner:after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   right: 20px;
@@ -354,15 +356,15 @@
   color: #222 !important;
 }
 
-.booking-wrapper form label{
+.booking-wrapper form label {
   display: none;
 }
 
-.booking-wrapper select{
+.booking-wrapper select {
   appearance: none;
   outline: 0;
   box-shadow: none;
-  border: 0!important;
+  border: 0 !important;
   background: #fff;
   background-image: none;
   flex: 1;
@@ -371,8 +373,8 @@
   font-size: 1em;
 }
 
-.booking-wrapper select::-ms-expand{
-    display: none;
+.booking-wrapper select::-ms-expand {
+  display: none;
 }
 
 /* Custom Select */
@@ -408,7 +410,8 @@
 }
 
 /*style the items (options), including the selected item:*/
-.select-items div,.select-selected {
+.select-items div,
+.select-selected {
   color: #ffffff;
   padding: 8px 16px;
   border: 1px solid transparent;
@@ -432,11 +435,10 @@
   display: none;
 }
 
-.select-items div:hover, .same-as-selected {
+.select-items div:hover,
+.same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }
-
-
 
 /* 
 .select {

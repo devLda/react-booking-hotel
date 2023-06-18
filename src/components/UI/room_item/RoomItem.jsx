@@ -13,10 +13,10 @@ const RoomItem = (props) => {
           <img src={image ? image : ""} alt="room item" />
         </div>
         <span class="category">
-          <Link to="/">Book</Link>
+          <Link to="/">Đặt phòng</Link>
         </span>
         <div class="con">
-          <h6>0-200$ / Night</h6>
+          <h6>0-4.600.000 đ/ Đêm</h6>
           <h5>{title ? title : ""}</h5>
           <div class="line"></div>
           <div class="row facilities">
@@ -39,7 +39,7 @@ const RoomItem = (props) => {
             <div class="col col-md-5 text-end">
               <div class="permalink">
                 <Link to={`/${path.DETAIL_ROOM}/${id}`}>
-                  Details <i class="fa-solid fa-arrow-right"></i>
+                  Chi tiết <i class="fa-solid fa-arrow-right"></i>
                 </Link>
               </div>
             </div>

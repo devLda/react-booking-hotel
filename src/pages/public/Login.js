@@ -61,12 +61,14 @@ const Login = () => {
     let Email = payload.Email;
     const response = await apiForgotPassword({ Email });
     if (response.success) {
-      Swal.fire("Yêu cầu reset thành công", response.mes, "success").then(
-        () => {
-          setIsForgotPassword(!isForgotPassword);
-          resetPayload();
-        }
-      );
+      Swal.fire(
+        "Yêu cầu đặt lại mật khẩu thành công",
+        response.mes,
+        "success"
+      ).then(() => {
+        setIsForgotPassword(!isForgotPassword);
+        resetPayload();
+      });
     } else Swal.fire("Lỗi", response.mes, "error");
   };
 
@@ -83,14 +85,14 @@ const Login = () => {
           {isForgotPassword && (
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Forgot Password
+                Quên mật khẩu
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
                 <label
                   for="HoVaTen"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Enter your email
+                  Nhập email của bạn
                 </label>
                 <input
                   type="text"
@@ -118,7 +120,7 @@ const Login = () => {
                     handleForgot();
                   }}
                 >
-                  Submit
+                  Quên mật khẩu
                 </button>
 
                 <p
@@ -127,7 +129,7 @@ const Login = () => {
                     setIsForgotPassword(!isForgotPassword);
                   }}
                 >
-                  Return Login
+                  Quay lại đăng nhập
                 </p>
               </form>
             </div>
@@ -135,7 +137,7 @@ const Login = () => {
           {!isForgotPassword && (
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                {isRegister ? `Sign up` : `Login`}
+                {isRegister ? `Đăng ký` : `Đăng nhập`}
               </h1>
               <form class="space-y-4 md:space-y-6" action="#">
                 {isRegister && (
@@ -145,7 +147,7 @@ const Login = () => {
                         for="HoVaTen"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
-                        Your Name
+                        Tên của bạn
                       </label>
                       <input
                         type="text"
@@ -171,7 +173,7 @@ const Login = () => {
                         for="SDT"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
-                        Your Phone Number
+                        Số điện thoại của bạn
                       </label>
                       <input
                         type="text"
@@ -198,7 +200,7 @@ const Login = () => {
                     for="email"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your email
+                    Email của bạn
                   </label>
                   <input
                     type="email"
@@ -223,7 +225,7 @@ const Login = () => {
                     for="Password"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Password
+                    Mật khẩu
                   </label>
                   <input
                     type="password"
@@ -251,12 +253,12 @@ const Login = () => {
                     handleSubmit();
                   }}
                 >
-                  {isRegister ? `Sign up` : `Log in`}
+                  {isRegister ? `Đăng ký` : `Đăng nhập`}
                 </button>
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                   {isRegister
-                    ? `Have an account yet? `
-                    : `Don't have an account yet? `}
+                    ? `Bạn đã có tài khoản? `
+                    : `Bạn chưa từng có tài khoản? `}
                   <span
                     class="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
                     onClick={(e) => {
@@ -264,7 +266,7 @@ const Login = () => {
                       resetPayload();
                     }}
                   >
-                    {isRegister ? `Log in` : `Sign up`}
+                    {isRegister ? `Đăng nhập` : `Đăng ký`}
                   </span>
                 </p>
                 {!isRegister && (
@@ -275,7 +277,7 @@ const Login = () => {
                         setIsForgotPassword(!isForgotPassword);
                       }}
                     >
-                      Forgot Password
+                      Quên mật khẩu
                     </p>
                     <p
                       class="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
@@ -283,7 +285,7 @@ const Login = () => {
                         navigate(`/${path.HOME}`);
                       }}
                     >
-                      Back HomePage
+                      Quay lại trang chủ
                     </p>
                   </div>
                 )}

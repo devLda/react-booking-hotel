@@ -34,8 +34,7 @@ const Home = () => {
       title: item.TenLoaiPhong,
     };
   });
-  LPSelect.unshift({ id: "All", title: "All" });
-
+  LPSelect.unshift({ id: "All", title: "Tất cả" });
 
   const room = loaiphong?.slice(0, 3);
   const suite = loaiphong?.slice(3, 5);
@@ -51,8 +50,8 @@ const Home = () => {
       <section className="room-item">
         <div className="container section-padding">
           <div class="w-full">
-            <div class="section-subtitle">Anh Oct Luxury Hotel</div>
-            <div class="section-title">Rooms &amp; Suites</div>
+            <div class="section-subtitle">Khách sạn sang trọng Anh Oct</div>
+            <div class="section-title">Loại phòng</div>
           </div>
 
           <div className="flex justify-between">
@@ -85,8 +84,8 @@ const Home = () => {
           <div className="md:w-8/12">
             <div class="testimonials-box">
               <div class="head-box">
-                <h6>Testimonials</h6>
-                <h4>What Client's Say?</h4>
+                <h6>Chia sẻ của khách hàng</h6>
+                <h4>Khách hàng đã nói gì?</h4>
                 <div class="line"></div>
               </div>
 
