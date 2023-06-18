@@ -1,7 +1,7 @@
 const path = {
   // URL_API: "http://localhost:3300/api/",
   URL_API: "https://react-booking-hotel-server.onrender.com/api/",
-  URL: "https://react-booking-hotel.netlify.app",
+  URL: "https://anhoct-hotel.netlify.app",
   PUBLIC: "",
   HOME: "home",
   ABOUT: "about",
